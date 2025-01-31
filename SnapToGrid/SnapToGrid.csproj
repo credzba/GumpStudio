@@ -7,10 +7,6 @@
 	  <LangVersion>8.0</LangVersion>
 	  <BaseOutputPath>../../Output/Plugins/</BaseOutputPath>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="System.Memory" Version="4.6.0" />
-  </ItemGroup>
   
   <ItemGroup>
     <ProjectReference Include="..\GumpStudio\GumpStudio.csproj" />
