@@ -2,14 +2,23 @@
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
     <ProductVersion>9.0.30729</ProductVersion>
-    <TargetFramework>net45</TargetFramework>
+    <TargetFramework>net481</TargetFramework>
     <AssemblyTitle>Ultima SDK</AssemblyTitle>
     <AssemblyVersion>4.3.2</AssemblyVersion>
     <FileVersion>4.3.2</FileVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+	  <LangVersion>8.0</LangVersion>
     <OutputPath>..\output\</OutputPath>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="UOFont.cs" />
+    <Compile Remove="UOFonts.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NLog" Version="5.3.4" />
+    <PackageReference Include="System.Memory" Version="4.6.0" />
+  </ItemGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="System.Windows.Forms" />

@@ -244,25 +244,34 @@ namespace GumpStudio.Forms
                 int y = 0;
                 while ( enumerator1.MoveNext() )
                 {
-                    Type objectValue = (Type) RuntimeHelpers.GetObjectValue( enumerator1.Current );
-                    BaseElement instance = (BaseElement) Activator.CreateInstance( objectValue );
-                    Button button = new Button();
-                    button.Text = instance.Type;
-                    Point point = new Point( 0, y );
-                    button.Location = point;
-                    button.FlatStyle = FlatStyle.System;
-                    button.Width = _pnlToolbox.Width;
-                    button.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-                    button.Tag = objectValue;
-                    y += button.Height - 1;
-                    _pnlToolbox.Controls.Add( button );
-                    button.Click += new EventHandler( CreateElementFromToolbox );
-                    if ( instance.DispayInAbout() )
-                        AboutElementAppend = AboutElementAppend + "\r\n\r\n" + instance.Type + ": " + instance.GetAboutText();
-                    foreach ( object loadedPlugin in LoadedPlugins )
-                        ( (BasePlugin) RuntimeHelpers.GetObjectValue( loadedPlugin ) ).InitializeElementExtenders( instance );
+                    try
+                    {
+                        Type objectValue = (Type)RuntimeHelpers.GetObjectValue(enumerator1.Current);
+
+                        BaseElement instance = (BaseElement)Activator.CreateInstance(objectValue);
+                        Button button = new Button();
+                        button.Text = instance.Type;
+                        Point point = new Point(0, y);
+                        button.Location = point;
+                        button.FlatStyle = FlatStyle.System;
+                        button.Width = _pnlToolbox.Width;
+                        button.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+                        button.Tag = objectValue;
+                        y += button.Height - 1;
+                        _pnlToolbox.Controls.Add(button);
+                        button.Click += new EventHandler(CreateElementFromToolbox);
+                        if (instance.DispayInAbout())
+                            AboutElementAppend = AboutElementAppend + "\r\n\r\n" + instance.Type + ": " + instance.GetAboutText();
+                        foreach (object loadedPlugin in LoadedPlugins)
+                            ((BasePlugin)RuntimeHelpers.GetObjectValue(loadedPlugin)).InitializeElementExtenders(instance);
+                    }
+                    catch (Exception ex)
+                    {
+                        //MessageBox.Show("Error loading toolbox: " + ex.Message);
+                    }
                 }
             }
+
             catch ( Exception ex )
             {
                 MessageBox.Show( $"Error\r\n{ex.Message}\n{ex.StackTrace}" );

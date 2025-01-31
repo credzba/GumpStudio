@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net461</TargetFramework>
+    <TargetFramework>net481</TargetFramework>
     <RootNamespace>GumpStudio</RootNamespace>
     <UseWindowsForms>true</UseWindowsForms>
     <FileUpgradeFlags />
@@ -11,6 +11,7 @@
     <Description>Gump Studio</Description>
     <Copyright>January 2008</Copyright>
     <AssemblyVersion>1.9.2</AssemblyVersion>
+	  <LangVersion>8.0</LangVersion>
     <FileVersion>1.9.2</FileVersion>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
@@ -19,6 +20,8 @@
     <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Version>1.9.2</Version>
+    <BaseOutputPath>../Output</BaseOutputPath>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>..\output\</OutputPath>
@@ -78,7 +81,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="squirrel.windows" Version="1.9.1" />
+    <PackageReference Include="NLog" Version="5.3.4" />
+    <PackageReference Include="squirrel.windows" Version="2.0.1" />
+    <PackageReference Include="System.Memory" Version="4.6.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Ultima\Ultima.csproj" />

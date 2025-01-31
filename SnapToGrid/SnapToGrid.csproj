@@ -1,13 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net461</TargetFramework>
+    <TargetFramework>net481</TargetFramework>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <OutputPath>..\output\</OutputPath>
+	  <LangVersion>8.0</LangVersion>
+	  <BaseOutputPath>../../Output/Plugins/</BaseOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Squirrel.Windows" Version="1.9.1" />
+    <PackageReference Include="Squirrel.Windows" Version="2.0.1" />
+    <PackageReference Include="System.Memory" Version="4.6.0" />
   </ItemGroup>
   
   <ItemGroup>
