@@ -4,15 +4,12 @@
 // MVID: A77D32E5-7519-4865-AA26-DCCB34429732
 // Assembly location: C:\GumpStudio_1_8_R3_quinted-02\GumpStudioCore.dll
 
-using Microsoft.VisualBasic.CompilerServices;
 using System;
 using System.ComponentModel;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace GumpStudio
 {
-    [DesignerGenerated]
     public class Settings : Form
     {
         private Button _Button1;

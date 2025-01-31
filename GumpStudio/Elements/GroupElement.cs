@@ -4,8 +4,6 @@
 // MVID: A77D32E5-7519-4865-AA26-DCCB34429732
 // Assembly location: C:\GumpStudio_1_8_R3_quinted-02\GumpStudioCore.dll
 
-using Microsoft.VisualBasic;
-using Microsoft.VisualBasic.CompilerServices;
 using System;
 using System.Collections;
 using System.Drawing;
@@ -27,21 +25,10 @@ namespace GumpStudio.Elements
         {
             get
             {
-                BaseElement[] baseElementArray = null;
-                IEnumerator enumerator = null;
-                try
+                BaseElement[] baseElementArray = new BaseElement[this.mElements.Count];
+                for (int i = 0; i < this.mElements.Count; i++)
                 {
-                    foreach ( object mElement in this.mElements )
-                    {
-                        BaseElement objectValue = (BaseElement) RuntimeHelpers.GetObjectValue( mElement );
-                        baseElementArray = baseElementArray != null ? (BaseElement[]) Utils.CopyArray( baseElementArray, new BaseElement[baseElementArray.Length + 1] ) : new BaseElement[1];
-                        baseElementArray[baseElementArray.Length - 1] = objectValue;
-                    }
-                }
-                finally
-                {
-                    if ( enumerator is IDisposable )
-                        ( enumerator as IDisposable ).Dispose();
+                    baseElementArray[i] = (BaseElement)this.mElements[i];
                 }
                 return baseElementArray;
             }
@@ -272,10 +259,7 @@ namespace GumpStudio.Elements
             }
             catch ( Exception ex )
             {
-                ProjectData.SetProjectError( ex );
-                //int num = (int) Interaction.MsgBox((object) ex.Message, MsgBoxStyle.OkOnly, (object) null);
                 MessageBox.Show( ex.Message );
-                ProjectData.ClearProjectError();
             }
         }
 

@@ -4,7 +4,6 @@
 // MVID: A77D32E5-7519-4865-AA26-DCCB34429732
 // Assembly location: C:\GumpStudio_1_8_R3_quinted-02\GumpStudioCore.dll
 
-using Microsoft.VisualBasic.CompilerServices;
 using System;
 using System.ComponentModel;
 using System.Globalization;
@@ -12,7 +11,7 @@ using Ultima;
 
 namespace GumpStudio
 {
-  public class HuePropStringConverter : StringConverter
+    public class HuePropStringConverter : StringConverter
   {
     public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
     {
@@ -27,13 +26,15 @@ namespace GumpStudio
       return destinationType == typeof (Hue);
     }
 
+        /*
     public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
     {
-      if (Versioned.IsNumeric(Conversions.ToString(value)))
-        return Hues.GetHue(Conversions.ToInteger(value));
-      return Hues.GetHue(HexHelper.HexToDec(Conversions.ToString(value)));
+      if (Versioned.IsNumeric(value?.ToString() ?? string.Empty))
+        return Hues.GetHue(Convert.ToInt32(value));
+      return Hues.GetHue(HexHelper.HexToDec(value?.ToString() ?? string.Empty));
     }
 
+        */
     public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
     {
       return value.ToString();

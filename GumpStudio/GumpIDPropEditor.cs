@@ -4,8 +4,6 @@
 // MVID: A77D32E5-7519-4865-AA26-DCCB34429732
 // Assembly location: C:\GumpStudio_1_8_R3_quinted-02\GumpStudioCore.dll
 
-using Microsoft.VisualBasic;
-using Microsoft.VisualBasic.CompilerServices;
 using System;
 using System.ComponentModel;
 using System.Drawing;
@@ -34,7 +32,7 @@ namespace GumpStudio
             if ( this.edSvc != null )
             {
                 GumpArtBrowser gumpArtBrowser = new GumpArtBrowser();
-                gumpArtBrowser.GumpID = Conversions.ToInteger( value );
+                gumpArtBrowser.GumpID = Convert.ToInt32( value );
                 if ( this.edSvc.ShowDialog( gumpArtBrowser ) == DialogResult.OK )
                 {
                     Image gump = Gumps.GetGump( gumpArtBrowser.GumpID );

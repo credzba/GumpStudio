@@ -4,15 +4,13 @@
 // MVID: A77D32E5-7519-4865-AA26-DCCB34429732
 // Assembly location: C:\GumpStudio_1_8_R3_quinted-02\GumpStudioCore.dll
 
-using Microsoft.VisualBasic;
-using Microsoft.VisualBasic.CompilerServices;
+using GumpStudio.Properties;
 using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Design;
 using System.Runtime.Serialization;
 using System.Windows.Forms;
-using GumpStudio.Properties;
 using Ultima;
 
 namespace GumpStudio.Elements
@@ -123,10 +121,8 @@ namespace GumpStudio.Elements
             }
             catch ( Exception ex )
             {
-                ProjectData.SetProjectError( ex );
                 MessageBox.Show( string.Format( Resources.Error_drawing_itemID___, ItemID.ToString() ) );
                 ItemID = 1;
-                ProjectData.ClearProjectError();
             }
         }
 

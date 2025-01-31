@@ -9,11 +9,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
-using UOFont;
 
 namespace GumpStudio
 {
@@ -117,7 +115,7 @@ namespace GumpStudio
                 e.Graphics.FillRectangle( SystemBrushes.Window, e.Bounds );
             if ( e.Index > ( this.fntunicode ? 12 : 9 ) )
                 return;
-            Bitmap bitmap = this.fntunicode ? UnicodeFonts.GetStringImage( e.Index, "ABCabc123!@#$АБВабв" ) : Fonts.GetStringImage( e.Index, "ABCabc123 */ АБВабв" );
+            Bitmap bitmap = this.fntunicode ? Utility.TextToBitmap("ABCabc123!@#$АБВабв" ) : Utility.TextToBitmap("ABCabc123 */ АБВабв");
             e.Graphics.DrawImage( bitmap, e.Bounds.Location );
             bitmap.Dispose();
         }
@@ -130,7 +128,7 @@ namespace GumpStudio
             }
             else
             {
-                Bitmap bitmap = this.fntunicode ? UnicodeFonts.GetStringImage( e.Index, "ABCabc123!@#$АБВабв" ) : Fonts.GetStringImage( e.Index, "ABCabc123 */ АБВабв" );
+                Bitmap bitmap = this.fntunicode ? Utility.TextToBitmap("ABCabc123!@#$АБВабв") : Utility.TextToBitmap("ABCabc123 */ АБВабв" );
                 e.ItemHeight = bitmap.Height;
                 bitmap.Dispose();
             }

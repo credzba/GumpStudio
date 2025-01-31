@@ -27,12 +27,6 @@
     <OutputPath>..\output\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="UOFont">
-      <HintPath>lib\UOFont.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Update="Forms\GumpArtBrowser.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -79,10 +73,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>README.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="NLog" Version="5.3.4" />
-    <PackageReference Include="System.Memory" Version="4.6.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Ultima\Ultima.csproj" />

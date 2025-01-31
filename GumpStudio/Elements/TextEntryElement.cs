@@ -10,8 +10,6 @@ using System.Drawing;
 using System.Drawing.Design;
 using System.Runtime.Serialization;
 using Ultima;
-using UOFont;
-using UnicodeFonts = UOFont.UnicodeFonts;
 
 namespace GumpStudio.Elements
 {

@@ -5,7 +5,6 @@
 // Assembly location: C:\GumpStudio_1_8_R3_quinted-02\GumpStudioCore.dll
 
 using GumpStudio.Plugins;
-using Microsoft.VisualBasic.CompilerServices;
 using System;
 using System.Collections;
 using System.ComponentModel;
@@ -128,22 +127,22 @@ namespace GumpStudio.Elements
 
     public event BaseElement.UpdateParentEventHandler UpdateParent;
 
-    public BaseElement()
-    {
-      long num1;
-      if (BaseElement.mIDs.Contains(this.Type))
-      {
-        long num2 = Conversions.ToLong(BaseElement.mIDs[this.Type]) + 1L;
-        BaseElement.mIDs[this.Type] = num2;
-        num1 = num2;
-      }
-      else
-      {
-        BaseElement.mIDs.Add(this.Type, 1);
-        num1 = 1L;
-      }
-      this.mName = this.Type + " " + Conversions.ToString(num1);
-    }
+        public BaseElement()
+        {
+            long num1;
+            if (BaseElement.mIDs.Contains(this.Type))
+            {
+                long num2 = Convert.ToInt64(BaseElement.mIDs[this.Type]) + 1L;
+                BaseElement.mIDs[this.Type] = num2;
+                num1 = num2;
+            }
+            else
+            {
+                BaseElement.mIDs.Add(this.Type, 1);
+                num1 = 1L;
+            }
+            this.mName = this.Type + " " + num1.ToString(System.Globalization.CultureInfo.InvariantCulture);
+        }
 
     public BaseElement(string Name)
     {

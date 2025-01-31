@@ -4,11 +4,11 @@
 // MVID: A77D32E5-7519-4865-AA26-DCCB34429732
 // Assembly location: C:\GumpStudio_1_8_R3_quinted-02\GumpStudioCore.dll
 
-using Microsoft.VisualBasic.CompilerServices;
 using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Windows.Forms.Design;
 using Ultima;
 
 namespace GumpStudio
@@ -115,19 +115,60 @@ namespace GumpStudio
             return Color.FromArgb( ( (short) ( Col >> 10 ) & 31 ) * 8, ( (short) ( Col >> 5 ) & 31 ) * 8, ( Col & 31 ) * 8 );
         }
 
-        private void HuePickerControl_Load( object sender, EventArgs e )
+        private void HuePickerControl_Load(object sender, EventArgs e)
         {
             this._lstHue.Items.Clear();
-            foreach ( Hue hue in Hues.List )
+            foreach (Hue hue in Hues.List)
             {
-                if ( hue.Index == this.mHue.Index )
-                    this._lstHue.SelectedIndex = this._lstHue.Items.Add( hue );
+                if (hue.Index == this.mHue.Index)
+                    this._lstHue.SelectedIndex = this._lstHue.Items.Add(hue);
                 else
-                    this._lstHue.Items.Add( hue );
+                    this._lstHue.Items.Add(hue);
             }
-            this._StatusBar.Text = Conversions.ToString( this.mHue.Index ) + ": " + this.mHue.Name;
+            this._StatusBar.Text = this.mHue.Index.ToString() + ": " + this.mHue.Name;
         }
 
+
+        /*
+        public object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
+        {
+            this.edSvc = (IWindowsFormsEditorService)provider.GetService(typeof(IWindowsFormsEditorService));
+            if (this.edSvc == null)
+                return value;
+            LargeTextEditor largeTextEditor = new LargeTextEditor();
+            largeTextEditor.txtText.Text = value.ToString();
+            if (this.edSvc.ShowDialog(largeTextEditor) == DialogResult.OK)
+                return largeTextEditor.txtText.Text;
+            return value;
+        }
+        
+
+        public object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
+        {
+            this.edSvc = (IWindowsFormsEditorService)provider.GetService(typeof(IWindowsFormsEditorService));
+            if (this.edSvc != null)
+            {
+                GumpArtBrowser gumpArtBrowser = new GumpArtBrowser();
+                gumpArtBrowser.GumpID = Convert.ToInt32(value);
+                if (this.edSvc.ShowDialog(gumpArtBrowser) == DialogResult.OK)
+                {
+                    Image gump = Gumps.GetGump(gumpArtBrowser.GumpID);
+                    if (gump != null)
+                    {
+                        gump.Dispose();
+                        this.ReturnValue = gumpArtBrowser.GumpID;
+                        gumpArtBrowser.Dispose();
+                        return this.ReturnValue;
+                    }
+                    MessageBox.Show("Invalid GumpID");
+                    return value;
+                }
+                gumpArtBrowser.Dispose();
+            }
+            return value;
+        }
+        */
+        
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
@@ -247,13 +288,14 @@ namespace GumpStudio
             }
         }
 
-        private void lstHue_SelectedIndexChanged( object sender, EventArgs e )
+        private void lstHue_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.mHue = (Hue) this._lstHue.SelectedItem;
-            if ( this.mHue == null )
+            this.mHue = (Hue)this._lstHue.SelectedItem;
+            if (this.mHue == null)
                 return;
-            this._StatusBar.Text = Conversions.ToString( this.mHue.Index ) + ": " + this.mHue.Name;
+            this._StatusBar.Text = this.mHue.Index.ToString() + ": " + this.mHue.Name;
         }
+
 
         public delegate void ValueChangedEventHandler( Hue Hue );
     }
