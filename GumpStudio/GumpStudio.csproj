@@ -82,7 +82,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NLog" Version="5.3.4" />
-    <PackageReference Include="squirrel.windows" Version="2.0.1" />
     <PackageReference Include="System.Memory" Version="4.6.0" />
   </ItemGroup>
   <ItemGroup>
