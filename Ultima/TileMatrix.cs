@@ -20,21 +20,21 @@ namespace Ultima
         private FileStream _statics;
         private Entry3D[] _staticIndex;
 
-/*
- // TODO: unused?
-        public Entry3D[] StaticIndex
-        {
-            get
-            {
-                if (!StaticIndexInit)
+        /*
+         // TODO: unused?
+                public Entry3D[] StaticIndex
                 {
-                    InitStatics();
-                }
+                    get
+                    {
+                        if (!StaticIndexInit)
+                        {
+                            InitStatics();
+                        }
 
-                return _staticIndex;
-            }
-        }
-*/
+                        return _staticIndex;
+                    }
+                }
+        */
 
         public bool StaticIndexInit;
 
@@ -143,23 +143,23 @@ namespace Ultima
             Patch = new TileMatrixPatch(this, mapId, path);
         }
 
-/*
- // TODO: unused?
-        public void SetStaticBlock(int x, int y, HuedTile[][][] value)
-        {
-            if (x < 0 || y < 0 || x >= BlockWidth || y >= BlockHeight)
-            {
-                return;
-            }
+        /*
+         // TODO: unused?
+                public void SetStaticBlock(int x, int y, HuedTile[][][] value)
+                {
+                    if (x < 0 || y < 0 || x >= BlockWidth || y >= BlockHeight)
+                    {
+                        return;
+                    }
 
-            if (_staticTiles[x] == null)
-            {
-                _staticTiles[x] = new HuedTile[BlockHeight][][][];
-            }
+                    if (_staticTiles[x] == null)
+                    {
+                        _staticTiles[x] = new HuedTile[BlockHeight][][][];
+                    }
 
-            _staticTiles[x][y] = value;
-        }
-*/
+                    _staticTiles[x][y] = value;
+                }
+        */
 
         public HuedTile[][][] GetStaticBlock(int x, int y, bool patch = true)
         {
@@ -193,23 +193,23 @@ namespace Ultima
             return GetStaticBlock(x >> 3, y >> 3)[x & 0x7][y & 0x7];
         }
 
-/*
- // TODO: unused?
-        public void SetLandBlock(int x, int y, Tile[] value)
-        {
-            if (x < 0 || y < 0 || x >= BlockWidth || y >= BlockHeight)
-            {
-                return;
-            }
+        /*
+         // TODO: unused?
+                public void SetLandBlock(int x, int y, Tile[] value)
+                {
+                    if (x < 0 || y < 0 || x >= BlockWidth || y >= BlockHeight)
+                    {
+                        return;
+                    }
 
-            if (_landTiles[x] == null)
-            {
-                _landTiles[x] = new Tile[BlockHeight][];
-            }
+                    if (_landTiles[x] == null)
+                    {
+                        _landTiles[x] = new Tile[BlockHeight][];
+                    }
 
-            _landTiles[x][y] = value;
-        }
-*/
+                    _landTiles[x][y] = value;
+                }
+        */
 
         public Tile[] GetLandBlock(int x, int y, bool patch = true)
         {

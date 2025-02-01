@@ -8,7 +8,6 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Windows.Forms.Design;
 using Ultima;
 
 namespace GumpStudio
@@ -33,20 +32,20 @@ namespace GumpStudio
 
         public HuePickerControl()
         {
-            this.Load += new EventHandler( this.HuePickerControl_Load );
+            this.Load += new EventHandler(this.HuePickerControl_Load);
             this.InitializeComponent();
         }
 
-        public HuePickerControl( Hue InitialHue )
+        public HuePickerControl(Hue InitialHue)
           : this()
         {
             this.mHue = InitialHue;
         }
 
-        private void cboQuick_SelectedIndexChanged( object sender, EventArgs e )
+        private void cboQuick_SelectedIndexChanged(object sender, EventArgs e)
         {
             string s = "0";
-            switch ( this._cboQuick.Text )
+            switch (this._cboQuick.Text)
             {
                 case "Colors":
                     s = "0";
@@ -106,13 +105,13 @@ namespace GumpStudio
                     s = "2400";
                     break;
             }
-            this._lstHue.SelectedIndex = this._lstHue.FindString( s );
+            this._lstHue.SelectedIndex = this._lstHue.FindString(s);
             this._lstHue.Focus();
         }
 
-        protected static Color Convert555ToARGB( short Col )
+        protected static Color Convert555ToARGB(short Col)
         {
-            return Color.FromArgb( ( (short) ( Col >> 10 ) & 31 ) * 8, ( (short) ( Col >> 5 ) & 31 ) * 8, ( Col & 31 ) * 8 );
+            return Color.FromArgb(((short)(Col >> 10) & 31) * 8, ((short)(Col >> 5) & 31) * 8, (Col & 31) * 8);
         }
 
         private void HuePickerControl_Load(object sender, EventArgs e)
@@ -168,7 +167,7 @@ namespace GumpStudio
             return value;
         }
         */
-        
+
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
@@ -180,8 +179,8 @@ namespace GumpStudio
             // 
             // _lstHue
             // 
-            this._lstHue.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this._lstHue.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this._lstHue.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this._lstHue.IntegralHeight = false;
@@ -233,36 +232,36 @@ namespace GumpStudio
             // 
             // HuePickerControl
             // 
-            this.Controls.Add( this._cboQuick );
-            this.Controls.Add( this._StatusBar );
-            this.Controls.Add( this._lstHue );
+            this.Controls.Add(this._cboQuick);
+            this.Controls.Add(this._StatusBar);
+            this.Controls.Add(this._lstHue);
             this.Name = "HuePickerControl";
             this.Size = new System.Drawing.Size(208, 264);
             this.ResumeLayout(false);
         }
 
-        private void lstHue_DoubleClick( object sender, EventArgs e )
+        private void lstHue_DoubleClick(object sender, EventArgs e)
         {
             HuePickerControl.ValueChangedEventHandler valueChanged = this.ValueChanged;
-            valueChanged?.Invoke( this.mHue );
+            valueChanged?.Invoke(this.mHue);
         }
 
-        private void lstHue_DrawItem( object sender, DrawItemEventArgs e )
+        private void lstHue_DrawItem(object sender, DrawItemEventArgs e)
         {
             Graphics graphics1 = e.Graphics;
-            graphics1.FillRectangle( Brushes.White, e.Bounds );
-            if ( ( e.State & DrawItemState.Selected ) > DrawItemState.None )
+            graphics1.FillRectangle(Brushes.White, e.Bounds);
+            if ((e.State & DrawItemState.Selected) > DrawItemState.None)
             {
-                Rectangle rect = new Rectangle( e.Bounds.X, e.Bounds.Y, 50, this._lstHue.ItemHeight );
-                graphics1.FillRectangle( SystemBrushes.Highlight, rect );
+                Rectangle rect = new Rectangle(e.Bounds.X, e.Bounds.Y, 50, this._lstHue.ItemHeight);
+                graphics1.FillRectangle(SystemBrushes.Highlight, rect);
             }
             else
             {
-                Rectangle rect = new Rectangle( e.Bounds.X, e.Bounds.Y, 50, this._lstHue.ItemHeight );
-                graphics1.FillRectangle( SystemBrushes.Window, rect );
+                Rectangle rect = new Rectangle(e.Bounds.X, e.Bounds.Y, 50, this._lstHue.ItemHeight);
+                graphics1.FillRectangle(SystemBrushes.Window, rect);
             }
-            float num1 = ( e.Bounds.Width - 35 ) / 32f;
-            Hue hue = (Hue) this._lstHue.Items[e.Index];
+            float num1 = (e.Bounds.Width - 35) / 32f;
+            Hue hue = (Hue)this._lstHue.Items[e.Index];
             Graphics graphics2 = graphics1;
             string s = hue.Index.ToString();
             Font font = e.Font;
@@ -271,19 +270,19 @@ namespace GumpStudio
             double num2 = bounds1.X + 3;
             bounds1 = e.Bounds;
             double y1 = bounds1.Y;
-            graphics2.DrawString( s, font, black, (float) num2, (float) y1 );
+            graphics2.DrawString(s, font, black, (float)num2, (float)y1);
             int num3 = 0;
-            foreach ( short color in hue.Colors )
+            foreach (short color in hue.Colors)
             {
                 Rectangle bounds2 = e.Bounds;
-                int x = bounds2.X + 35 + (int) Math.Round( num3 * (double) num1 );
+                int x = bounds2.X + 35 + (int)Math.Round(num3 * (double)num1);
                 bounds2 = e.Bounds;
                 int y2 = bounds2.Y;
-                int width = (int) Math.Round( num1 + 1.0 );
+                int width = (int)Math.Round(num1 + 1.0);
                 bounds2 = e.Bounds;
                 int height = bounds2.Height;
-                Rectangle rect = new Rectangle( x, y2, width, height );
-                graphics1.FillRectangle( new SolidBrush( HuePickerControl.Convert555ToARGB( color ) ), rect );
+                Rectangle rect = new Rectangle(x, y2, width, height);
+                graphics1.FillRectangle(new SolidBrush(HuePickerControl.Convert555ToARGB(color)), rect);
                 ++num3;
             }
         }
@@ -297,6 +296,6 @@ namespace GumpStudio
         }
 
 
-        public delegate void ValueChangedEventHandler( Hue Hue );
+        public delegate void ValueChangedEventHandler(Hue Hue);
     }
 }

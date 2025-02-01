@@ -44,7 +44,7 @@ namespace Ultima
                 return TileMatrix.InvalidLandBlock;
             }
 
-            if (LandBlocks[x]==null)
+            if (LandBlocks[x] == null)
             {
                 return TileMatrix.InvalidLandBlock;
             }

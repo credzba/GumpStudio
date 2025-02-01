@@ -7,7 +7,6 @@
 using System;
 using System.ComponentModel;
 using System.Drawing.Design;
-using System.Security.Permissions;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
 using Ultima;
@@ -19,35 +18,35 @@ namespace GumpStudio
         protected IWindowsFormsEditorService edSvc;
         protected int ReturnValue;
 
-        public override object EditValue( ITypeDescriptorContext context, IServiceProvider provider, object value )
+        public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
         {
-            edSvc = (IWindowsFormsEditorService) provider.GetService( typeof( IWindowsFormsEditorService ) );
+            edSvc = (IWindowsFormsEditorService)provider.GetService(typeof(IWindowsFormsEditorService));
 
-            if ( edSvc == null )
+            if (edSvc == null)
             {
                 return value;
             }
 
-            StaticArtBrowser staticArtBrowser = new StaticArtBrowser { ItemID = Convert.ToInt32( value ) };
+            StaticArtBrowser staticArtBrowser = new StaticArtBrowser { ItemID = Convert.ToInt32(value) };
 
-            if ( edSvc.ShowDialog( staticArtBrowser ) != DialogResult.OK )
+            if (edSvc.ShowDialog(staticArtBrowser) != DialogResult.OK)
             {
                 return value;
             }
 
-            if ( Art.GetStatic( staticArtBrowser.ItemID ) != null )
+            if (Art.GetStatic(staticArtBrowser.ItemID) != null)
             {
                 ReturnValue = staticArtBrowser.ItemID;
                 staticArtBrowser.Dispose();
                 return ReturnValue;
             }
 
-            MessageBox.Show( @"Invalid ItemID" );
+            MessageBox.Show(@"Invalid ItemID");
 
             return value;
         }
 
-        public override UITypeEditorEditStyle GetEditStyle( ITypeDescriptorContext context )
+        public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
         {
             return UITypeEditorEditStyle.Modal;
         }

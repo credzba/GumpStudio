@@ -8,25 +8,25 @@ using System;
 
 namespace GumpStudio.Plugins
 {
-  [Serializable]
-  public class PluginInfo
-  {
-    public string AuthorEmail;
-    public string AuthorName;
-    public string Description;
-    public string PluginName;
-    public string Version;
-
-    public bool Equals(PluginInfo Info)
+    [Serializable]
+    public class PluginInfo
     {
-      if (!(this.AuthorEmail != Info.AuthorEmail) && !(this.AuthorName != Info.AuthorName) && (!(this.Description != Info.Description) && !(this.PluginName != Info.PluginName)))
-        return !(this.Version != Info.Version);
-      return false;
-    }
+        public string AuthorEmail;
+        public string AuthorName;
+        public string Description;
+        public string PluginName;
+        public string Version;
 
-    public override string ToString()
-    {
-      return this.PluginName;
+        public bool Equals(PluginInfo Info)
+        {
+            if (!(this.AuthorEmail != Info.AuthorEmail) && !(this.AuthorName != Info.AuthorName) && (!(this.Description != Info.Description) && !(this.PluginName != Info.PluginName)))
+                return !(this.Version != Info.Version);
+            return false;
+        }
+
+        public override string ToString()
+        {
+            return this.PluginName;
+        }
     }
-  }
 }

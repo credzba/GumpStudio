@@ -22,27 +22,27 @@ namespace GumpStudio.Elements
         protected Hue mHue;
         protected int mItemID;
 
-        [TypeConverter( typeof( HuePropStringConverter ) )]
-        [Browsable( true )]
-        [Editor( typeof( HuePropEditor ), typeof( UITypeEditor ) )]
+        [TypeConverter(typeof(HuePropStringConverter))]
+        [Browsable(true)]
+        [Editor(typeof(HuePropEditor), typeof(UITypeEditor))]
         public Hue Hue
         {
             get => mHue;
             set => mHue = value;
         }
 
-        [Editor( typeof( ItemIDPropEditor ), typeof( UITypeEditor ) )]
+        [Editor(typeof(ItemIDPropEditor), typeof(UITypeEditor))]
         public int ItemID
         {
             get => mItemID;
             set
             {
-                ImageCache = Art.GetStatic( value );
-                if ( ImageCache == null )
+                ImageCache = Art.GetStatic(value);
+                if (ImageCache == null)
                 {
-                    ImageCache = Art.GetStatic( mItemID );
+                    ImageCache = Art.GetStatic(mItemID);
                     //int num = (int) Interaction.MsgBox((object) "Invalid ItemID", MsgBoxStyle.OkOnly, (object) null);
-                    MessageBox.Show( "Invalid ItemID" );
+                    MessageBox.Show("Invalid ItemID");
                 }
                 else
                 {
@@ -56,72 +56,72 @@ namespace GumpStudio.Elements
 
         public ItemElement()
         {
-            mSize = new Size( 50, 50 );
+            mSize = new Size(50, 50);
             ItemID = 0;
-            mHue = Hues.GetHue( 0 );
+            mHue = Hues.GetHue(0);
         }
 
-        public ItemElement( SerializationInfo info, StreamingContext context )
-          : base( info, context )
+        public ItemElement(SerializationInfo info, StreamingContext context)
+          : base(info, context)
         {
-            info.GetInt32( "ItemElementVersion" );
-            mItemID = info.GetInt32( nameof( ItemID ) );
-            mHue = Hues.GetHue( info.GetInt32( "HueIndex" ) );
+            info.GetInt32("ItemElementVersion");
+            mItemID = info.GetInt32(nameof(ItemID));
+            mHue = Hues.GetHue(info.GetInt32("HueIndex"));
             RefreshCache();
         }
 
-        public override void GetObjectData( SerializationInfo info, StreamingContext context )
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            base.GetObjectData( info, context );
-            info.AddValue( "ItemElementVersion", 1 );
-            info.AddValue( "ItemID", mItemID );
-            info.AddValue( "HueIndex", mHue.Index );
+            base.GetObjectData(info, context);
+            info.AddValue("ItemElementVersion", 1);
+            info.AddValue("ItemID", mItemID);
+            info.AddValue("HueIndex", mHue.Index);
         }
 
         public override void RefreshCache()
         {
-            if ( ImageCache != null )
+            if (ImageCache != null)
                 return;
-            ImageCache = Art.GetStatic( mItemID );
+            ImageCache = Art.GetStatic(mItemID);
         }
 
-        public override void Render( Graphics Target )
+        public override void Render(Graphics Target)
         {
             try
             {
-                if ( mHue.Index != 0 )
+                if (mHue.Index != 0)
                 {
-                    Bitmap bmp = (Bitmap) ImageCache.Clone();
-                    if ( bmp != null )
+                    Bitmap bmp = (Bitmap)ImageCache.Clone();
+                    if (bmp != null)
                     {
-                        mHue.ApplyTo( bmp, false );
-                        Target.DrawImage( bmp, Location );
+                        mHue.ApplyTo(bmp, false);
+                        Target.DrawImage(bmp, Location);
                         bmp.Dispose();
                     }
                     else
                     {
-                        Target.DrawLine( Pens.Red, X, Y, X + 30, Y + 30 );
-                        Target.DrawLine( Pens.Red, X + 30, Y, X, Y + 30 );
+                        Target.DrawLine(Pens.Red, X, Y, X + 30, Y + 30);
+                        Target.DrawLine(Pens.Red, X + 30, Y, X, Y + 30);
                     }
                 }
                 else
                 {
-                    if ( ImageCache == null )
+                    if (ImageCache == null)
                         RefreshCache();
-                    if ( ImageCache != null )
+                    if (ImageCache != null)
                     {
-                        Target.DrawImage( ImageCache, Location );
+                        Target.DrawImage(ImageCache, Location);
                     }
                     else
                     {
-                        Target.DrawLine( Pens.Red, X, Y, X + 30, Y + 30 );
-                        Target.DrawLine( Pens.Red, X + 30, Y, X, Y + 30 );
+                        Target.DrawLine(Pens.Red, X, Y, X + 30, Y + 30);
+                        Target.DrawLine(Pens.Red, X + 30, Y, X, Y + 30);
                     }
                 }
             }
-            catch ( Exception ex )
+            catch (Exception ex)
             {
-                MessageBox.Show( string.Format( Resources.Error_drawing_itemID___, ItemID.ToString() ) );
+                MessageBox.Show(string.Format(Resources.Error_drawing_itemID___, ItemID.ToString()));
                 ItemID = 1;
             }
         }

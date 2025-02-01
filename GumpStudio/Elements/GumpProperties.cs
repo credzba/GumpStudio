@@ -10,78 +10,78 @@ using System.Runtime.Serialization;
 
 namespace GumpStudio.Elements
 {
-  [Serializable]
-  public class GumpProperties : ISerializable, ICloneable
-  {
-    protected bool mCloseable;
-    protected bool mDisposeable;
-    protected Point mLocation;
-    protected bool mMoveable;
-    protected int mType;
-
-    public bool Closeable
+    [Serializable]
+    public class GumpProperties : ISerializable, ICloneable
     {
-      get => this.mCloseable;
-      set => this.mCloseable = value;
-    }
+        protected bool mCloseable;
+        protected bool mDisposeable;
+        protected Point mLocation;
+        protected bool mMoveable;
+        protected int mType;
 
-    public bool Disposeable
-    {
-      get => this.mDisposeable;
-      set => this.mDisposeable = value;
-    }
+        public bool Closeable
+        {
+            get => this.mCloseable;
+            set => this.mCloseable = value;
+        }
 
-    public Point Location
-    {
-      get => this.mLocation;
-      set => this.mLocation = value;
-    }
+        public bool Disposeable
+        {
+            get => this.mDisposeable;
+            set => this.mDisposeable = value;
+        }
 
-    public bool Moveable
-    {
-      get => this.mMoveable;
-      set => this.mMoveable = value;
-    }
+        public Point Location
+        {
+            get => this.mLocation;
+            set => this.mLocation = value;
+        }
 
-    public int Type
-    {
-      get => this.mType;
-      set => this.mType = value;
-    }
+        public bool Moveable
+        {
+            get => this.mMoveable;
+            set => this.mMoveable = value;
+        }
 
-    public GumpProperties()
-    {
-      this.mMoveable = true;
-      this.mCloseable = true;
-      this.mDisposeable = true;
-    }
+        public int Type
+        {
+            get => this.mType;
+            set => this.mType = value;
+        }
 
-    protected GumpProperties(SerializationInfo info, StreamingContext context)
-    {
-      this.mMoveable = true;
-      this.mCloseable = true;
-      this.mDisposeable = true;
-      info.GetInt32("Version");
-      this.mLocation = (Point) info.GetValue(nameof (Location), typeof (Point));
-      this.mMoveable = info.GetBoolean(nameof (Moveable));
-      this.mCloseable = info.GetBoolean(nameof (Closeable));
-      this.mDisposeable = info.GetBoolean(nameof (Disposeable));
-      this.mType = info.GetInt32(nameof (Type));
-    }
+        public GumpProperties()
+        {
+            this.mMoveable = true;
+            this.mCloseable = true;
+            this.mDisposeable = true;
+        }
 
-    public object Clone()
-    {
-      return this.MemberwiseClone();
-    }
+        protected GumpProperties(SerializationInfo info, StreamingContext context)
+        {
+            this.mMoveable = true;
+            this.mCloseable = true;
+            this.mDisposeable = true;
+            info.GetInt32("Version");
+            this.mLocation = (Point)info.GetValue(nameof(Location), typeof(Point));
+            this.mMoveable = info.GetBoolean(nameof(Moveable));
+            this.mCloseable = info.GetBoolean(nameof(Closeable));
+            this.mDisposeable = info.GetBoolean(nameof(Disposeable));
+            this.mType = info.GetInt32(nameof(Type));
+        }
 
-    public void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-      info.AddValue("Version", 1);
-      info.AddValue("Location", this.mLocation);
-      info.AddValue("Moveable", this.mMoveable);
-      info.AddValue("Closeable", this.mCloseable);
-      info.AddValue("Disposeable", this.mDisposeable);
-      info.AddValue("Type", this.mType);
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("Version", 1);
+            info.AddValue("Location", this.mLocation);
+            info.AddValue("Moveable", this.mMoveable);
+            info.AddValue("Closeable", this.mCloseable);
+            info.AddValue("Disposeable", this.mDisposeable);
+            info.AddValue("Type", this.mType);
+        }
     }
-  }
 }

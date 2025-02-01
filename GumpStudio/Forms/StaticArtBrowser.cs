@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 using Ultima;
@@ -14,20 +13,20 @@ namespace GumpStudio
     public class StaticArtBrowser : Form
     {
         private bool _searchSomething;
-        private  Button _cmdCache;
-        private  Button _cmdSearch;
+        private Button _cmdCache;
+        private Button _cmdSearch;
         private Label _lblID;
         private Label _lblName;
         private Label _lblSize;
         private Label _lblWait;
         private PictureBox _picCanvas;
         private ToolTip _toolTip;
-        private  TextBox _txtSearch;
-        private  VScrollBar _vsbScroller;
+        private TextBox _txtSearch;
+        private VScrollBar _vsbScroller;
         protected static Bitmap? BlankCache;
         protected bool BuildingCache;
         protected static GumpCacheEntry[]? Cache;
-        private  IContainer? _components;
+        private IContainer? _components;
         protected Size DisplaySize;
         protected Point HoverPos;
         protected int NumX;
@@ -288,9 +287,9 @@ namespace GumpStudio
 
             while (foundIndex == -1 && currentIndex < Cache!.Length - 1)
             {
-                currentIndex++;               
+                currentIndex++;
                 if (Cache[currentIndex].Name.IndexOf(_txtSearch.Text, StringComparison.OrdinalIgnoreCase) >= 0)
-                        foundIndex = currentIndex;
+                    foundIndex = currentIndex;
             }
 
             if (foundIndex != -1)

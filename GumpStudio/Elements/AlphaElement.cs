@@ -17,30 +17,30 @@ namespace GumpStudio.Elements
 
         public AlphaElement()
         {
-            this.mSize = new Size( 100, 50 );
+            this.mSize = new Size(100, 50);
         }
 
-        protected AlphaElement( SerializationInfo info, StreamingContext context )
-          : base( info, context )
+        protected AlphaElement(SerializationInfo info, StreamingContext context)
+          : base(info, context)
         {
-            info.GetInt32( "AlphaElementVersion" );
+            info.GetInt32("AlphaElementVersion");
         }
 
-        public override void GetObjectData( SerializationInfo info, StreamingContext context )
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            base.GetObjectData( info, context );
-            info.AddValue( "AlphaElementVersion", 1 );
+            base.GetObjectData(info, context);
+            info.AddValue("AlphaElementVersion", 1);
         }
 
         public override void RefreshCache()
         {
         }
 
-        public override void Render( Graphics Target )
+        public override void Render(Graphics Target)
         {
-            SolidBrush solidBrush = new SolidBrush( Color.FromArgb( 50, Color.Red ) );
-            Target.FillRectangle( solidBrush, this.Bounds );
-            Target.DrawRectangle( Pens.Red, this.Bounds );
+            SolidBrush solidBrush = new SolidBrush(Color.FromArgb(50, Color.Red));
+            Target.FillRectangle(solidBrush, this.Bounds);
+            Target.DrawRectangle(Pens.Red, this.Bounds);
             solidBrush.Dispose();
         }
 

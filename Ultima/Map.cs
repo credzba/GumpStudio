@@ -99,10 +99,10 @@ namespace Ultima
             _isCachedNoStaticsNoPatch = false;
         }
 
-/*
- // TODO: unused?
-        public bool LoadedMatrix { get { return _tiles != null; } }
-*/
+        /*
+         // TODO: unused?
+                public bool LoadedMatrix { get { return _tiles != null; } }
+        */
 
         public TileMatrix Tiles
         {
@@ -118,21 +118,21 @@ namespace Ultima
 
         public int FileIndex { get; }
 
-/*
- // TODO: unused?
-        /// <summary>
-        /// Returns Bitmap with Statics
-        /// </summary>
-        /// <param name="x">8x8 Block</param>
-        /// <param name="y">8x8 Block</param>
-        /// <param name="width">8x8 Block</param>
-        /// <param name="height">8x8 Block</param>
-        /// <returns></returns>
-        public Bitmap GetImage(int x, int y, int width, int height)
-        {
-            return GetImage(x, y, width, height, true);
-        }
-*/
+        /*
+         // TODO: unused?
+                /// <summary>
+                /// Returns Bitmap with Statics
+                /// </summary>
+                /// <param name="x">8x8 Block</param>
+                /// <param name="y">8x8 Block</param>
+                /// <param name="width">8x8 Block</param>
+                /// <param name="height">8x8 Block</param>
+                /// <returns></returns>
+                public Bitmap GetImage(int x, int y, int width, int height)
+                {
+                    return GetImage(x, y, width, height, true);
+                }
+        */
 
         /// <summary>
         /// Returns Bitmap
@@ -455,21 +455,21 @@ namespace Ultima
             return data;
         }
 
-/*
- // TODO: unused?
-        /// <summary>
-        /// Draws in given Bitmap with Statics
-        /// </summary>
-        /// <param name="x">8x8 Block</param>
-        /// <param name="y">8x8 Block</param>
-        /// <param name="width">8x8 Block</param>
-        /// <param name="height">8x8 Block</param>
-        /// <param name="bmp">8x8 Block</param>
-        public void GetImage(int x, int y, int width, int height, Bitmap bmp)
-        {
-            GetImage(x, y, width, height, bmp, true);
-        }
-*/
+        /*
+         // TODO: unused?
+                /// <summary>
+                /// Draws in given Bitmap with Statics
+                /// </summary>
+                /// <param name="x">8x8 Block</param>
+                /// <param name="y">8x8 Block</param>
+                /// <param name="width">8x8 Block</param>
+                /// <param name="height">8x8 Block</param>
+                /// <param name="bmp">8x8 Block</param>
+                public void GetImage(int x, int y, int width, int height, Bitmap bmp)
+                {
+                    GetImage(x, y, width, height, bmp, true);
+                }
+        */
 
         /// <summary>
         /// Draws in given Bitmap

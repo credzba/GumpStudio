@@ -4,13 +4,11 @@
 // MVID: A77D32E5-7519-4865-AA26-DCCB34429732
 // Assembly location: C:\GumpStudio_1_8_R3_quinted-02\GumpStudioCore.dll
 
+using GumpStudio.Properties;
 using System;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
-using System.Resources;
 using System.Windows.Forms;
-using GumpStudio.Properties;
 
 namespace GumpStudio.Forms
 {
@@ -29,17 +27,17 @@ namespace GumpStudio.Forms
             InitializeComponent();
         }
 
-        private void cmdClose_Click( object sender, EventArgs e )
+        private void cmdClose_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void frmAboutBox_Load( object sender, EventArgs e )
+        private void frmAboutBox_Load(object sender, EventArgs e)
         {
             lblVersion.Text = Resources.Core_Version__ + Assembly.GetExecutingAssembly().GetName().Version;
         }
 
-        
+
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAboutBox));
@@ -130,16 +128,16 @@ namespace GumpStudio.Forms
 
         }
 
-        private void lblHomepage_LinkClicked( object sender, LinkLabelLinkClickedEventArgs e )
+        private void lblHomepage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start( new ProcessStartInfo
+            Process.Start(new ProcessStartInfo
             {
                 UseShellExecute = true,
                 FileName = "http://www.orbsydia.net"
-            } );
+            });
         }
 
-        public void SetText( string Text )
+        public void SetText(string Text)
         {
             txtAbout.Text = "Gump Studio was designed and written by Bradley Uffner in 2004. It makes extensive use of a modified version of the UOSDK written by Krrios, available at www.RunUO.com. Artwork was created by Melanius, and several more ideas were contributed by the RunUO community.  Special thanks go to DarkStorm of the Wolfpack emulator for helping me to decode unifont.mul, allowing me to displaying UO fonts correctly.\r\n\r\n====Plugin Specific Information====\r\n" + Text;
         }

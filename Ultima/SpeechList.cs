@@ -243,14 +243,14 @@ namespace Ultima
         }
     }
 
-/*
- // TODO: unused?
-    [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public struct SpeechMul
-    {
-        public short id;
-        public short length;
-        public byte[] keyword;
-    }
-*/
+    /*
+     // TODO: unused?
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
+        public struct SpeechMul
+        {
+            public short id;
+            public short length;
+            public byte[] keyword;
+        }
+    */
 }

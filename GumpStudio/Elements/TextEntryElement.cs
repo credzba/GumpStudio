@@ -22,10 +22,10 @@ namespace GumpStudio.Elements
         protected string mInitialText;
         protected int mMaxLength;
 
-        [TypeConverter( typeof( HuePropStringConverter ) )]
-        [Description( "The Hue of the text, Only the right-most color of the Hue is used." )]
-        [Browsable( true )]
-        [Editor( typeof( HuePropEditor ), typeof( UITypeEditor ) )]
+        [TypeConverter(typeof(HuePropStringConverter))]
+        [Description("The Hue of the text, Only the right-most color of the Hue is used.")]
+        [Browsable(true)]
+        [Editor(typeof(HuePropEditor), typeof(UITypeEditor))]
         public Hue Hue
         {
             get => mHue;
@@ -36,15 +36,15 @@ namespace GumpStudio.Elements
             }
         }
 
-        [Description( "The ID of this text entry element returned to script." )]
-        [MergableProperty( false )]
+        [Description("The ID of this text entry element returned to script.")]
+        [MergableProperty(false)]
         public int ID
         {
             get => mID;
             set => mID = value;
         }
 
-        [Description( "The text in the text entry area when the gump is initially opened." )]
+        [Description("The text in the text entry area when the gump is initially opened.")]
         public string InitialText
         {
             get => mInitialText;
@@ -55,8 +55,8 @@ namespace GumpStudio.Elements
             }
         }
 
-        [Description( "MaxLength sets the maximum number of characters allowed in this TextEntry element. Set to 0 for no limit." )]
-        [MergableProperty( true )]
+        [Description("MaxLength sets the maximum number of characters allowed in this TextEntry element. Set to 0 for no limit.")]
+        [MergableProperty(true)]
         public int MaxLength
         {
             get => mMaxLength;
@@ -67,33 +67,33 @@ namespace GumpStudio.Elements
 
         public TextEntryElement()
         {
-            mSize = new Size( 200, 20 );
-            mHue = Hues.GetHue( 0 );
+            mSize = new Size(200, 20);
+            mHue = Hues.GetHue(0);
         }
 
-        public TextEntryElement( SerializationInfo info, StreamingContext context ) : base( info, context )
+        public TextEntryElement(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            int int32 = info.GetInt32( "TextEntryElementVersion" );
-            mInitialText = info.GetString( "Text" );
-            mHue = Hues.GetHue( info.GetInt32( "HueIndex" ) );
+            int int32 = info.GetInt32("TextEntryElementVersion");
+            mInitialText = info.GetString("Text");
+            mHue = Hues.GetHue(info.GetInt32("HueIndex"));
 
-            if ( int32 >= 2 )
+            if (int32 >= 2)
             {
-                mID = info.GetInt32( nameof( ID ) );
-                mMaxLength = info.GetInt32( nameof( MaxLength ) );
+                mID = info.GetInt32(nameof(ID));
+                mMaxLength = info.GetInt32(nameof(MaxLength));
             }
 
             RefreshCache();
         }
 
-        public override void GetObjectData( SerializationInfo info, StreamingContext context )
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            base.GetObjectData( info, context );
-            info.AddValue( "TextEntryElementVersion", 2 );
-            info.AddValue( "Text", mInitialText );
-            info.AddValue( "HueIndex", mHue.Index );
-            info.AddValue( "ID", mID );
-            info.AddValue( "MaxLength", mMaxLength );
+            base.GetObjectData(info, context);
+            info.AddValue("TextEntryElementVersion", 2);
+            info.AddValue("Text", mInitialText);
+            info.AddValue("HueIndex", mHue.Index);
+            info.AddValue("ID", mID);
+            info.AddValue("MaxLength", mMaxLength);
         }
         public static Bitmap TextToBitmap(string text, Font font = null, Color? textColor = null, Color? backgroundColor = null)
         {
@@ -129,12 +129,12 @@ namespace GumpStudio.Elements
         }
         public override void RefreshCache()
         {
-            if ( mHue == null )
+            if (mHue == null)
             {
-                mHue = Hues.GetHue( 0 );
+                mHue = Hues.GetHue(0);
             }
 
-            if ( mCache != null )
+            if (mCache != null)
             {
                 mCache.Dispose();
             }
@@ -144,27 +144,27 @@ namespace GumpStudio.Elements
                 mInitialText = "";
             mCache = TextToBitmap(mInitialText, null, mHue.GetColor(0), Color.Transparent);
 
-            if ( ( mHue == null || mHue.Index == 0 ? 0 : 1 ) == 0 )
+            if ((mHue == null || mHue.Index == 0 ? 0 : 1) == 0)
             {
                 return;
             }
 
-            mHue.ApplyTo( mCache, false );
+            mHue.ApplyTo(mCache, false);
         }
 
-        public override void Render( Graphics Target )
+        public override void Render(Graphics Target)
         {
-            if ( mCache == null )
+            if (mCache == null)
             {
                 RefreshCache();
             }
 
             Region clip = Target.Clip;
-            Region region = new Region( Bounds );
+            Region region = new Region(Bounds);
             Target.Clip = region;
-            SolidBrush solidBrush = new SolidBrush( Color.FromArgb( 50, Color.Yellow ) );
-            Target.FillRectangle( solidBrush, Bounds );
-            Target.DrawImage( mCache, Location );
+            SolidBrush solidBrush = new SolidBrush(Color.FromArgb(50, Color.Yellow));
+            Target.FillRectangle(solidBrush, Bounds);
+            Target.DrawImage(mCache, Location);
             solidBrush.Dispose();
             Target.Clip = clip;
             region.Dispose();
@@ -172,7 +172,7 @@ namespace GumpStudio.Elements
 
         public string ToRunUOString()
         {
-            return $"AddTextEntry({X}, {Y}, {Width}, {Height}, {Hue}, {mID}, {Name.Replace( " ", "" )});";            
+            return $"AddTextEntry({X}, {Y}, {Width}, {Height}, {Hue}, {mID}, {Name.Replace(" ", "")});";
         }
     }
 }

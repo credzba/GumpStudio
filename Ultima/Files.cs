@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
-using Microsoft.Win32;
 
 namespace Ultima
 {

@@ -24,7 +24,7 @@ namespace GumpStudio.Elements
         protected ButtonStateEnum mState;
         protected ButtonTypeEnum mType;
 
-        [Description( "The Type of button. Page buttons change the current page, and Reply buttons return a value to the script." )]
+        [Description("The Type of button. Page buttons change the current page, and Reply buttons return a value to the script.")]
         public ButtonTypeEnum ButtonType
         {
             get => mType;
@@ -35,16 +35,16 @@ namespace GumpStudio.Elements
             }
         }
 
-        [Editor( typeof( LargeTextPropEditor ), typeof( UITypeEditor ) )]
-        [Description( "This contains script code to be executed when this button is pressed. (must be supported by the export plugin)" )]
+        [Editor(typeof(LargeTextPropEditor), typeof(UITypeEditor))]
+        [Description("This contains script code to be executed when this button is pressed. (must be supported by the export plugin)")]
         public string Code
         {
             get => mCodeBehind;
             set => mCodeBehind = value;
         }
 
-        [Description( "The ID of the image to display when the button is not being pressed." )]
-        [Editor( typeof( GumpIDPropEditor ), typeof( UITypeEditor ) )]
+        [Description("The ID of the image to display when the button is not being pressed.")]
+        [Editor(typeof(GumpIDPropEditor), typeof(UITypeEditor))]
         public int NormalID
         {
             get => mNormalID;
@@ -55,15 +55,15 @@ namespace GumpStudio.Elements
             }
         }
 
-        [Description( "For Page Buttons this represents the page to switch to.  For Reply buttons this represents the value to return to the script." )]
+        [Description("For Page Buttons this represents the page to switch to.  For Reply buttons this represents the value to return to the script.")]
         public int Param
         {
             get => mParam;
             set => mParam = value;
         }
 
-        [Description( "The ID of the image to display when the button is being pressed by the user." )]
-        [Editor( typeof( GumpIDPropEditor ), typeof( UITypeEditor ) )]
+        [Description("The ID of the image to display when the button is being pressed by the user.")]
+        [Editor(typeof(GumpIDPropEditor), typeof(UITypeEditor))]
         public int PressedID
         {
             get => mPressedID;
@@ -74,7 +74,7 @@ namespace GumpStudio.Elements
             }
         }
 
-        [Description( "Change this to see the button in it's different states." )]
+        [Description("Change this to see the button in it's different states.")]
         public ButtonStateEnum State
         {
             get => mState;
@@ -98,55 +98,55 @@ namespace GumpStudio.Elements
             RefreshCache();
         }
 
-        protected ButtonElement( SerializationInfo info, StreamingContext context )
-          : base( info, context )
+        protected ButtonElement(SerializationInfo info, StreamingContext context)
+          : base(info, context)
         {
             mType = ButtonTypeEnum.Reply;
             mState = ButtonStateEnum.Normal;
-            info.GetInt32( "ButtonElementVersion" );
-            mPressedID = info.GetInt32( nameof( PressedID ) );
-            mNormalID = info.GetInt32( nameof( NormalID ) );
-            mType = (ButtonTypeEnum) info.GetInt32( nameof( Type ) );
-            mState = (ButtonStateEnum) info.GetInt32( nameof( State ) );
-            mCodeBehind = info.GetString( "CodeBehind" );
-            mParam = info.GetInt32( nameof( Param ) );
+            info.GetInt32("ButtonElementVersion");
+            mPressedID = info.GetInt32(nameof(PressedID));
+            mNormalID = info.GetInt32(nameof(NormalID));
+            mType = (ButtonTypeEnum)info.GetInt32(nameof(Type));
+            mState = (ButtonStateEnum)info.GetInt32(nameof(State));
+            mCodeBehind = info.GetString("CodeBehind");
+            mParam = info.GetInt32(nameof(Param));
             RefreshCache();
         }
 
-        public override void GetObjectData( SerializationInfo info, StreamingContext context )
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            base.GetObjectData( info, context );
-            info.AddValue( "ButtonElementVersion", 1 );
-            info.AddValue( "PressedID", mPressedID );
-            info.AddValue( "NormalID", mNormalID );
-            info.AddValue( "Type", (int) mType );
-            info.AddValue( "State", (int) mState );
-            info.AddValue( "CodeBehind", mCodeBehind );
-            info.AddValue( "Param", mParam );
+            base.GetObjectData(info, context);
+            info.AddValue("ButtonElementVersion", 1);
+            info.AddValue("PressedID", mPressedID);
+            info.AddValue("NormalID", mNormalID);
+            info.AddValue("Type", (int)mType);
+            info.AddValue("State", (int)mState);
+            info.AddValue("CodeBehind", mCodeBehind);
+            info.AddValue("Param", mParam);
         }
 
         public override void RefreshCache()
         {
             Cache?.Dispose();
-            Cache = mState != ButtonStateEnum.Normal ? Gumps.GetGump( mPressedID ) : Gumps.GetGump( mNormalID );
+            Cache = mState != ButtonStateEnum.Normal ? Gumps.GetGump(mPressedID) : Gumps.GetGump(mNormalID);
 
-            if ( Cache == null )
+            if (Cache == null)
                 return;
 
             mSize = Cache.Size;
         }
 
-        public override void Render( Graphics Target )
+        public override void Render(Graphics Target)
         {
-            if ( Cache == null )
+            if (Cache == null)
                 RefreshCache();
-            Target.DrawImage( Cache, Location );
+            Target.DrawImage(Cache, Location);
         }
 
         public string ToRunUOString()
         {
             string buttonType = ButtonType == ButtonTypeEnum.Page ? "GumpButtonType.Page" : "GumpButtonType.Reply";
-            return $"AddButton({X}, {Y}, {NormalID}, {PressedID}, {Name.Replace( " ", "" )}, {buttonType}, {Param});";
+            return $"AddButton({X}, {Y}, {NormalID}, {PressedID}, {Name.Replace(" ", "")}, {buttonType}, {Param});";
         }
     }
 }

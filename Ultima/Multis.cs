@@ -274,7 +274,7 @@ namespace Ultima
 
                         MultiComponentList.MultiTileEntry centerItem = newTiles[i];
                         newTiles.RemoveAt(i); // jep so save it
-                        for (int j = newTiles.Count-1; j >= 0; --j) // and remove all invis
+                        for (int j = newTiles.Count - 1; j >= 0; --j) // and remove all invis
                         {
                             if (newTiles[j].m_ItemID == 0x1)
                             {
@@ -287,7 +287,7 @@ namespace Ultima
                         return newTiles;
                     }
 
-                    for (int j = newTiles.Count-1; j >= 1; --j) // nothing found so remove all invis except the first
+                    for (int j = newTiles.Count - 1; j >= 1; --j) // nothing found so remove all invis except the first
                     {
                         if (newTiles[j].m_ItemID == 0x1)
                         {
@@ -309,7 +309,7 @@ namespace Ultima
 
                 MultiComponentList.MultiTileEntry centerItem = newTiles[i];
                 newTiles.RemoveAt(i); // store it
-                for (int j = newTiles.Count-1; j >= 0; --j) // remove all invis
+                for (int j = newTiles.Count - 1; j >= 0; --j) // remove all invis
                 {
                     if (newTiles[j].m_ItemID == 0x1)
                     {
@@ -322,7 +322,7 @@ namespace Ultima
                 return newTiles;
             }
 
-            for (int j = newTiles.Count-1; j >= 0; --j) // nothing found so remove all invis
+            for (int j = newTiles.Count - 1; j >= 0; --j) // nothing found so remove all invis
             {
                 if (newTiles[j].m_ItemID == 0x1)
                 {
@@ -427,17 +427,17 @@ namespace Ultima
             public int m_Unk1;
         }
 
-/*
- // TODO: unused method
-        /// <summary>
-        /// Returns Bitmap of Multi
-        /// </summary>
-        /// <returns></returns>
-        public Bitmap GetImage()
-        {
-            return GetImage(300);
-        }
-*/
+        /*
+         // TODO: unused method
+                /// <summary>
+                /// Returns Bitmap of Multi
+                /// </summary>
+                /// <returns></returns>
+                public Bitmap GetImage()
+                {
+                    return GetImage(300);
+                }
+        */
 
         /// <summary>
         /// Returns Bitmap of Multi to maximumHeight

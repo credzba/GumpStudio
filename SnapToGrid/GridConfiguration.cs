@@ -10,7 +10,7 @@ namespace GumpStudioCore.Plugins
         public Color GridColor { get; set; }
         public bool ShowGrid { get; set; }
 
-        public GridConfiguration( Size gridSize, Color gridColor, bool showGrid )
+        public GridConfiguration(Size gridSize, Color gridColor, bool showGrid)
         {
             GridSize = gridSize;
             GridColor = gridColor;

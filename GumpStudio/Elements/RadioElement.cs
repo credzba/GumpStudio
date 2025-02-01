@@ -5,9 +5,7 @@
 // Assembly location: C:\GumpStudio_1_8_R3_quinted-02\GumpStudioCore.dll
 
 using System;
-using System.Collections;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 
 namespace GumpStudio.Elements
@@ -23,21 +21,21 @@ namespace GumpStudio.Elements
             set
             {
                 mChecked = value;
-                if ( !mChecked )
+                if (!mChecked)
                     return;
 
-                foreach ( object obj in mParent.GetElementsRecursive() )
+                foreach (object obj in mParent.GetElementsRecursive())
                 {
                     object objectValue = obj;
 
-                    if ( !( objectValue is RadioElement ) )
+                    if (!(objectValue is RadioElement))
                     {
                         continue;
                     }
 
-                    RadioElement radioElement = (RadioElement) objectValue;
+                    RadioElement radioElement = (RadioElement)objectValue;
 
-                    if ( radioElement != this && radioElement.Checked & radioElement.Group == Group )
+                    if (radioElement != this && radioElement.Checked & radioElement.Group == Group)
                     {
                         radioElement.Checked = false;
                     }
@@ -45,7 +43,7 @@ namespace GumpStudio.Elements
             }
         }
 
-        [Description( "The Group that the radio buttons belongs to.  Only one button in a group may be selected at a time." )]
+        [Description("The Group that the radio buttons belongs to.  Only one button in a group may be selected at a time.")]
         public override int Group
         {
             get => mGroupID;
@@ -54,8 +52,8 @@ namespace GumpStudio.Elements
 
         public override string Type => "Radio Button";
 
-        [MergableProperty( false )]
-        [Description( "The value fo this radio button returned to the script" )]
+        [MergableProperty(false)]
+        [Description("The value fo this radio button returned to the script")]
         public int Value
         {
             get => mValue;
@@ -68,19 +66,19 @@ namespace GumpStudio.Elements
             UnCheckedID = 209;
         }
 
-        public RadioElement( SerializationInfo info, StreamingContext context )
-          : base( info, context )
+        public RadioElement(SerializationInfo info, StreamingContext context)
+          : base(info, context)
         {
-            if ( info.GetInt32( "RadioElementVersion" ) >= 2 )
-                mValue = info.GetInt32( nameof( Value ) );
+            if (info.GetInt32("RadioElementVersion") >= 2)
+                mValue = info.GetInt32(nameof(Value));
             RefreshCache();
         }
 
-        public override void GetObjectData( SerializationInfo info, StreamingContext context )
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            base.GetObjectData( info, context );
-            info.AddValue( "RadioElementVersion", 2 );
-            info.AddValue( "Value", mValue );
+            base.GetObjectData(info, context);
+            info.AddValue("RadioElementVersion", 2);
+            info.AddValue("Value", mValue);
         }
     }
 }

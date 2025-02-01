@@ -109,13 +109,13 @@ namespace Ultima
             return _stringTable?.ContainsKey(number) != true ? null : _stringTable[number];
         }
 
-/*
- // TODO: unused?
-        public StringEntry GetEntry(int number)
-        {
-            return _entryTable?.ContainsKey(number) != true ? null : _entryTable[number];
-        }
-*/
+        /*
+         // TODO: unused?
+                public StringEntry GetEntry(int number)
+                {
+                    return _entryTable?.ContainsKey(number) != true ? null : _entryTable[number];
+                }
+        */
 
         public class NumberComparer : IComparer<StringEntry>
         {

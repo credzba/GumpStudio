@@ -1,7 +1,6 @@
-﻿using System.Drawing;
-using GumpStudio;
-using GumpStudio.Forms;
+﻿using GumpStudio.Forms;
 using GumpStudio.Plugins;
+using System.Drawing;
 
 namespace GumpStudioCore.Plugins
 {
@@ -10,19 +9,19 @@ namespace GumpStudioCore.Plugins
         private DesignerForm _designer;
         public GridConfiguration Config { get; set; }
 
-        public SnapToGridExtender( DesignerForm designerForm )
+        public SnapToGridExtender(DesignerForm designerForm)
         {
             _designer = designerForm;
         }
 
-        public int SnapXToGrid( int X ) => X / Config.GridSize.Width * Config.GridSize.Width;
-        public int SnapYToGrid( int Y ) => Y / Config.GridSize.Height * Config.GridSize.Height;
+        public int SnapXToGrid(int X) => X / Config.GridSize.Width * Config.GridSize.Width;
+        public int SnapYToGrid(int Y) => Y / Config.GridSize.Height * Config.GridSize.Height;
 
-        public Point SnapToGrid( Point Position )
+        public Point SnapToGrid(Point Position)
         {
             Point result = Position;
-            result.X = SnapXToGrid( Position.X );
-            result.Y = SnapXToGrid( Position.Y );
+            result.X = SnapXToGrid(Position.X);
+            result.Y = SnapXToGrid(Position.Y);
 
             return result;
         }

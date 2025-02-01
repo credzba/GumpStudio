@@ -23,7 +23,7 @@ namespace GumpStudio.Elements
         protected int mGroupID;
         protected int mUncheckedID;
 
-        [Description( "Sets the initial state of the checkbox." )]
+        [Description("Sets the initial state of the checkbox.")]
         public virtual bool Checked
         {
             get => mChecked;
@@ -34,7 +34,7 @@ namespace GumpStudio.Elements
             }
         }
 
-        [Editor( typeof( GumpIDPropEditor ), typeof( UITypeEditor ) )]
+        [Editor(typeof(GumpIDPropEditor), typeof(UITypeEditor))]
         public virtual int CheckedID
         {
             get => mCheckedID;
@@ -45,7 +45,7 @@ namespace GumpStudio.Elements
             }
         }
 
-        [Description( "The Value of the checkbox returned to the script." )]
+        [Description("The Value of the checkbox returned to the script.")]
         public virtual int Group
         {
             get => mGroupID;
@@ -54,7 +54,7 @@ namespace GumpStudio.Elements
 
         public override string Type => "Checkbox";
 
-        [Editor( typeof( GumpIDPropEditor ), typeof( UITypeEditor ) )]
+        [Editor(typeof(GumpIDPropEditor), typeof(UITypeEditor))]
         public virtual int UnCheckedID
         {
             get => mUncheckedID;
@@ -72,46 +72,46 @@ namespace GumpStudio.Elements
             RefreshCache();
         }
 
-        public CheckboxElement( SerializationInfo info, StreamingContext context )
-          : base( info, context )
+        public CheckboxElement(SerializationInfo info, StreamingContext context)
+          : base(info, context)
         {
-            info.GetInt32( "CheckboxVersion" );
-            mChecked = info.GetBoolean( nameof( Checked ) );
-            mCheckedID = info.GetInt32( nameof( CheckedID ) );
-            mUncheckedID = info.GetInt32( "UncheckedID" );
-            mGroupID = info.GetInt32( "GroupID" );
+            info.GetInt32("CheckboxVersion");
+            mChecked = info.GetBoolean(nameof(Checked));
+            mCheckedID = info.GetInt32(nameof(CheckedID));
+            mUncheckedID = info.GetInt32("UncheckedID");
+            mGroupID = info.GetInt32("GroupID");
             RefreshCache();
         }
 
-        public override void GetObjectData( SerializationInfo info, StreamingContext context )
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            base.GetObjectData( info, context );
-            info.AddValue( "CheckboxVersion", 1 );
-            info.AddValue( "Checked", mChecked );
-            info.AddValue( "CheckedID", mCheckedID );
-            info.AddValue( "UncheckedID", mUncheckedID );
-            info.AddValue( "GroupID", mGroupID );
+            base.GetObjectData(info, context);
+            info.AddValue("CheckboxVersion", 1);
+            info.AddValue("Checked", mChecked);
+            info.AddValue("CheckedID", mCheckedID);
+            info.AddValue("UncheckedID", mUncheckedID);
+            info.AddValue("GroupID", mGroupID);
         }
 
         public override void RefreshCache()
         {
             Image1Cache?.Dispose();
 
-            if ( Image2Cache != null )
+            if (Image2Cache != null)
             {
                 Image1Cache?.Dispose();
             }
 
-            Image1Cache = Gumps.GetGump( mUncheckedID );
+            Image1Cache = Gumps.GetGump(mUncheckedID);
 
-            if ( Image1Cache == null )
+            if (Image1Cache == null)
             {
                 UnCheckedID = 210;
             }
 
-            Image2Cache = Gumps.GetGump( mCheckedID );
+            Image2Cache = Gumps.GetGump(mCheckedID);
 
-            if ( Image2Cache == null )
+            if (Image2Cache == null)
             {
                 CheckedID = 211;
             }
@@ -119,22 +119,22 @@ namespace GumpStudio.Elements
             mSize = mChecked ? Image2Cache.Size : Image1Cache.Size;
         }
 
-        public override void Render( Graphics Target )
+        public override void Render(Graphics Target)
         {
-            if ( Image1Cache == null | Image2Cache == null )
+            if (Image1Cache == null | Image2Cache == null)
                 RefreshCache();
 
-            Target.DrawImage( mChecked ? Image2Cache : Image1Cache, Location );
+            Target.DrawImage(mChecked ? Image2Cache : Image1Cache, Location);
         }
 
         public string ToRunUOString()
         {
             string typeText = "AddCheck";
 
-            if ( this is RadioElement )
+            if (this is RadioElement)
                 typeText = "AddRadio";
 
-            return $"{typeText}({X}, {Y}, {UnCheckedID}, {CheckedID}, {Checked.ToString().ToLower()}, {Name.Replace( " ", "" )});";
+            return $"{typeText}({X}, {Y}, {UnCheckedID}, {CheckedID}, {Checked.ToString().ToLower()}, {Name.Replace(" ", "")});";
         }
     }
 }

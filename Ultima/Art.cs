@@ -669,7 +669,10 @@ namespace Ultima
                             bmp.UnlockBits(bd);
                             CheckSums s = new CheckSums
                             {
-                                pos = start, length = length, checksum = checksum, index = index
+                                pos = start,
+                                length = length,
+                                checksum = checksum,
+                                index = index
                             };
                             //Tex.WriteLine(System.String.Format("0x{0:X4} : 0x{1:X4} 0x{2:X4}", index, start, length));
                             _checksumsLand.Add(s);
@@ -762,7 +765,7 @@ namespace Ultima
                             binidx.Write(length);
                             binidx.Write(0);
                             bmp.UnlockBits(bd);
-                            var s = new CheckSums {pos = start, length = length, checksum = checksum, index = index};
+                            var s = new CheckSums { pos = start, length = length, checksum = checksum, index = index };
                             //Tex.WriteLine(System.String.Format("0x{0:X4} : 0x{1:X4} 0x{2:X4}", index, start, length));
                             _checksumsStatic.Add(s);
                         }

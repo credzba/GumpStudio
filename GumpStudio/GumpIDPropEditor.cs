@@ -20,30 +20,30 @@ namespace GumpStudio
         protected IWindowsFormsEditorService edSvc;
         protected int ReturnValue;
 
-        protected static Color Convert555ToARGB( short Col )
+        protected static Color Convert555ToARGB(short Col)
         {
-            return Color.FromArgb( ( (short) ( Col >> 10 ) & 31 ) * 8, ( (short) ( Col >> 5 ) & 31 ) * 8, ( Col & 31 ) * 8 );
+            return Color.FromArgb(((short)(Col >> 10) & 31) * 8, ((short)(Col >> 5) & 31) * 8, (Col & 31) * 8);
         }
 
-        [PermissionSet( SecurityAction.Demand, Name = "FullTrust" )]
-        public override object EditValue( ITypeDescriptorContext context, IServiceProvider provider, object value )
+        [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
+        public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
         {
-            this.edSvc = (IWindowsFormsEditorService) provider.GetService( typeof( IWindowsFormsEditorService ) );
-            if ( this.edSvc != null )
+            this.edSvc = (IWindowsFormsEditorService)provider.GetService(typeof(IWindowsFormsEditorService));
+            if (this.edSvc != null)
             {
                 GumpArtBrowser gumpArtBrowser = new GumpArtBrowser();
-                gumpArtBrowser.GumpID = Convert.ToInt32( value );
-                if ( this.edSvc.ShowDialog( gumpArtBrowser ) == DialogResult.OK )
+                gumpArtBrowser.GumpID = Convert.ToInt32(value);
+                if (this.edSvc.ShowDialog(gumpArtBrowser) == DialogResult.OK)
                 {
-                    Image gump = Gumps.GetGump( gumpArtBrowser.GumpID );
-                    if ( gump != null )
+                    Image gump = Gumps.GetGump(gumpArtBrowser.GumpID);
+                    if (gump != null)
                     {
                         gump.Dispose();
                         this.ReturnValue = gumpArtBrowser.GumpID;
                         gumpArtBrowser.Dispose();
                         return this.ReturnValue;
                     }
-                    MessageBox.Show( "Invalid GumpID" );
+                    MessageBox.Show("Invalid GumpID");
                     return value;
                 }
                 gumpArtBrowser.Dispose();
@@ -51,8 +51,8 @@ namespace GumpStudio
             return value;
         }
 
-        [PermissionSet( SecurityAction.Demand, Name = "FullTrust" )]
-        public override UITypeEditorEditStyle GetEditStyle( ITypeDescriptorContext context )
+        [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
+        public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
         {
             return UITypeEditorEditStyle.Modal;
         }

@@ -9,31 +9,31 @@ using GumpStudio.Forms;
 
 namespace GumpStudio.Plugins
 {
-  public abstract class BasePlugin
-  {
-    protected bool mIsLoaded;
-
-    public bool IsLoaded => this.mIsLoaded;
-
-    public abstract string Name { get; }
-
-    public abstract PluginInfo GetPluginInfo();
-
-    public virtual void InitializeElementExtenders(BaseElement Element)
+    public abstract class BasePlugin
     {
-    }
+        protected bool mIsLoaded;
 
-    public virtual void Load(DesignerForm frmDesigner)
-    {
-      this.mIsLoaded = true;
-    }
+        public bool IsLoaded => this.mIsLoaded;
 
-    public virtual void MouseMoveHook(ref MouseMoveHookEventArgs e)
-    {
-    }
+        public abstract string Name { get; }
 
-    public virtual void Unload()
-    {
+        public abstract PluginInfo GetPluginInfo();
+
+        public virtual void InitializeElementExtenders(BaseElement Element)
+        {
+        }
+
+        public virtual void Load(DesignerForm frmDesigner)
+        {
+            this.mIsLoaded = true;
+        }
+
+        public virtual void MouseMoveHook(ref MouseMoveHookEventArgs e)
+        {
+        }
+
+        public virtual void Unload()
+        {
+        }
     }
-  }
 }

@@ -5,7 +5,6 @@
 // Assembly location: C:\GumpStudio_1_8_R3_quinted-02\GumpStudioCore.dll
 
 using System;
-using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -18,33 +17,33 @@ namespace GumpStudio
 
         public frmSplash()
         {
-            this.Load += new EventHandler( this.frmSplash_Load );
-            this.Click += new EventHandler( this.frmSplash_Click );
+            this.Load += new EventHandler(this.frmSplash_Load);
+            this.Click += new EventHandler(this.frmSplash_Click);
             this.InitializeComponent();
         }
 
         public static void DisplaySplash()
         {
-            frmSplash.t = new Thread( new ThreadStart( frmSplash.ThreadStartDisplay ) );
+            frmSplash.t = new Thread(new ThreadStart(frmSplash.ThreadStartDisplay));
             frmSplash.t.Start();
         }
 
-        private static void FadeOut( Form f )
+        private static void FadeOut(Form f)
         {
             f.Dispose();
         }
 
-        private void frmSplash_Click( object sender, EventArgs e )
+        private void frmSplash_Click(object sender, EventArgs e)
         {
-            frmSplash.FadeOut( this );
+            frmSplash.FadeOut(this);
         }
 
-        private void frmSplash_Load( object sender, EventArgs e )
+        private void frmSplash_Load(object sender, EventArgs e)
         {
             this.CenterToScreen();
         }
 
-        
+
         private void InitializeComponent()
         {
             this.SuspendLayout();
@@ -68,15 +67,15 @@ namespace GumpStudio
             frmSplash.f = new frmSplash();
             frmSplash.f.Show();
             DateTime now = DateTime.Now;
-            while ( DateTime.Now < now + TimeSpan.FromSeconds( 2 ) )
+            while (DateTime.Now < now + TimeSpan.FromSeconds(2))
             {
-                Thread.Sleep( 100 );
+                Thread.Sleep(100);
                 Application.DoEvents();
             }
-            frmSplash.FadeOut( frmSplash.f );
+            frmSplash.FadeOut(frmSplash.f);
         }
 
-        private void FrmSplash_Load_1( object sender, EventArgs e )
+        private void FrmSplash_Load_1(object sender, EventArgs e)
         {
 
         }

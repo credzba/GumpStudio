@@ -408,13 +408,13 @@ namespace Ultima
             }
         }
 
-/*
- // TODO: unused?
-        public static bool IsRemovedSound(int soundId)
-        {
-            return soundId < 0 || _removed[soundId];
-        }
-*/
+        /*
+         // TODO: unused?
+                public static bool IsRemovedSound(int soundId)
+                {
+                    return soundId < 0 || _removed[soundId];
+                }
+        */
 
         private static byte[] CheckAndFixWave(byte[] inputBuffer)
         {

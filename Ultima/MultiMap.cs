@@ -48,7 +48,7 @@ namespace Ultima
                     int count = (pixel & 0x7f);
 
                     // black or white color
-                    ushort c = (pixel & 0x80) != 0 ? (ushort) 0x8000 : (ushort) 0xffff;
+                    ushort c = (pixel & 0x80) != 0 ? (ushort)0x8000 : (ushort)0xffff;
 
                     int i;
                     for (i = 0; i < count; ++i)
@@ -107,7 +107,7 @@ namespace Ultima
                             continue;
                         }
 
-                        mask = curColor == 0xffff ? (byte) 0x0 : (byte) 0x80;
+                        mask = curColor == 0xffff ? (byte)0x0 : (byte)0x80;
 
                         data |= mask;
                         bin.Write(data);
@@ -115,7 +115,7 @@ namespace Ultima
                     }
                     else if (data > 0)
                     {
-                        mask = curColor == 0xffff ? (byte) 0x0 : (byte) 0x80;
+                        mask = curColor == 0xffff ? (byte)0x0 : (byte)0x80;
 
                         data |= mask;
                         bin.Write(data);
@@ -132,7 +132,7 @@ namespace Ultima
 
             if (data > 0)
             {
-                mask = curColor == 0xffff ? (byte) 0x0 : (byte) 0x80;
+                mask = curColor == 0xffff ? (byte)0x0 : (byte)0x80;
 
                 data |= mask;
                 bin.Write(data);

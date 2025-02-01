@@ -51,24 +51,24 @@ namespace GumpStudio
             {
                 do
                 {
-                    _lblWait.Text = $@"Please Wait, Generating Art Cache...  {(int) ( 100 * index / (double) maxValue )}%";
+                    _lblWait.Text = $@"Please Wait, Generating Art Cache...  {(int)(100 * index / (double)maxValue)}%";
                     Application.DoEvents();
                     Bitmap gump;
                     try
                     {
-                        gump = Gumps.GetGump( index );
+                        gump = Gumps.GetGump(index);
                     }
-                    catch ( Exception )
+                    catch (Exception)
                     {
                         ++index;
 
                         return;
                     }
-                    if ( gump != null )
+                    if (gump != null)
                     {
-                        if ( Cache != null )
+                        if (Cache != null)
                         {
-                            Array.Resize( ref Cache, Cache.Length + 1 );
+                            Array.Resize(ref Cache, Cache.Length + 1);
                         }
                         else
                         {
@@ -80,16 +80,16 @@ namespace GumpStudio
                     }
                     ++index;
                 }
-                while ( index <= maxValue );
+                while (index <= maxValue);
 
-                using ( FileStream fileStream = new FileStream( Application.StartupPath + "/GumpArt.cache", FileMode.Create ) )
+                using (FileStream fileStream = new FileStream(Application.StartupPath + "/GumpArt.cache", FileMode.Create))
                 {
-                    new BinaryFormatter().Serialize( fileStream, Cache ?? throw new InvalidOperationException() );
+                    new BinaryFormatter().Serialize(fileStream, Cache ?? throw new InvalidOperationException());
                 }
             }
-            catch ( Exception ex )
+            catch (Exception ex)
             {
-                MessageBox.Show( @"Error creating cache file:" + ex.Message );
+                MessageBox.Show(@"Error creating cache file:" + ex.Message);
             }
             finally
             {
@@ -98,13 +98,13 @@ namespace GumpStudio
             }
         }
 
-        private void cmdCache_Click( object sender, EventArgs e )
+        private void cmdCache_Click(object sender, EventArgs e)
         {
             _cmdOK.Enabled = false;
 
-            DialogResult result = MessageBox.Show( @"Rebuilding the cache may take several minutes depending on the speed of your computer.\r\nAre you sure you want to continue?", @"Rebuild Cache", MessageBoxButtons.OKCancel, MessageBoxIcon.Information );
+            DialogResult result = MessageBox.Show(@"Rebuilding the cache may take several minutes depending on the speed of your computer.\r\nAre you sure you want to continue?", @"Rebuild Cache", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
 
-            if ( result == DialogResult.OK )
+            if (result == DialogResult.OK)
             {
                 BuildCache();
                 PopulateListbox();
@@ -112,25 +112,25 @@ namespace GumpStudio
             _cmdOK.Enabled = true;
         }
 
-        private void cmdOK_Click( object sender, EventArgs e )
+        private void cmdOK_Click(object sender, EventArgs e)
         {
-            GumpID = Convert.ToInt32( _lstGump.SelectedItem );
+            GumpID = Convert.ToInt32(_lstGump.SelectedItem);
             DialogResult = DialogResult.OK;
         }
 
-        protected override void Dispose( bool disposing )
+        protected override void Dispose(bool disposing)
         {
-            if ( disposing )
+            if (disposing)
                 components?.Dispose();
-            base.Dispose( disposing );
+            base.Dispose(disposing);
         }
 
-        private void GumpArtBrowser_Load( object sender, EventArgs e )
+        private void GumpArtBrowser_Load(object sender, EventArgs e)
         {
-            if ( Cache == null )
+            if (Cache == null)
             {
                 FileStream fileStream = null;
-                if ( !File.Exists( Application.StartupPath + "/GumpArt.cache" ) )
+                if (!File.Exists(Application.StartupPath + "/GumpArt.cache"))
                 {
                     BuildCache();
                 }
@@ -138,12 +138,12 @@ namespace GumpStudio
                 {
                     try
                     {
-                        fileStream = new FileStream( Application.StartupPath + "/GumpArt.cache", FileMode.Open );
-                        Cache = (GumpCacheEntry[]) new BinaryFormatter().Deserialize( fileStream );
+                        fileStream = new FileStream(Application.StartupPath + "/GumpArt.cache", FileMode.Open);
+                        Cache = (GumpCacheEntry[])new BinaryFormatter().Deserialize(fileStream);
                     }
-                    catch ( Exception ex )
+                    catch (Exception ex)
                     {
-                        MessageBox.Show( @"Error Reading cache file:\r\n" + ex.Message );
+                        MessageBox.Show(@"Error Reading cache file:\r\n" + ex.Message);
                     }
                     finally
                     {
@@ -172,7 +172,7 @@ namespace GumpStudio
             // 
             // _lstGump
             // 
-            this._lstGump.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this._lstGump.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                                    | System.Windows.Forms.AnchorStyles.Left;
             this._lstGump.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this._lstGump.IntegralHeight = false;
@@ -187,8 +187,8 @@ namespace GumpStudio
             // 
             // _Panel1
             // 
-            this._Panel1.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-                                   | System.Windows.Forms.AnchorStyles.Left) 
+            this._Panel1.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                                   | System.Windows.Forms.AnchorStyles.Left)
                                   | System.Windows.Forms.AnchorStyles.Right;
             this._Panel1.AutoScroll = true;
             this._Panel1.BackColor = System.Drawing.Color.Black;
@@ -273,56 +273,56 @@ namespace GumpStudio
 
         }
 
-        private void lstGump_DoubleClick( object sender, EventArgs e )
+        private void lstGump_DoubleClick(object sender, EventArgs e)
         {
-            GumpID = Convert.ToInt32( _lstGump.SelectedItem );
+            GumpID = Convert.ToInt32(_lstGump.SelectedItem);
             DialogResult = DialogResult.OK;
         }
 
-        private void lstGump_DrawItem( object sender, DrawItemEventArgs e )
+        private void lstGump_DrawItem(object sender, DrawItemEventArgs e)
         {
             try
             {
-                if ( e.Index == -1 )
+                if (e.Index == -1)
                     return;
                 Size size1 = new Size();
                 Graphics graphics = e.Graphics;
-                Bitmap gump = Gumps.GetGump( Cache[e.Index].ID );
+                Bitmap gump = Gumps.GetGump(Cache[e.Index].ID);
                 Size size2 = Cache[e.Index].Size;
                 size1.Width = size2.Width <= 100 ? size2.Width : 100;
                 size1.Height = size2.Height <= 100 ? size2.Height : 100;
-                Rectangle rect = new Rectangle( e.Bounds.Location, size1 );
-                rect.Offset( 45, 3 );
-                graphics.FillRectangle( ( e.State & DrawItemState.Selected ) > DrawItemState.None ? SystemBrushes.Highlight : SystemBrushes.Window, e.Bounds );
-                graphics.DrawString( "0x" + Cache[e.Index].ID.ToString( "X" ), Font, SystemBrushes.WindowText, e.Bounds.X, e.Bounds.Y );
-                graphics.DrawImage( gump, rect );
+                Rectangle rect = new Rectangle(e.Bounds.Location, size1);
+                rect.Offset(45, 3);
+                graphics.FillRectangle((e.State & DrawItemState.Selected) > DrawItemState.None ? SystemBrushes.Highlight : SystemBrushes.Window, e.Bounds);
+                graphics.DrawString("0x" + Cache[e.Index].ID.ToString("X"), Font, SystemBrushes.WindowText, e.Bounds.X, e.Bounds.Y);
+                graphics.DrawImage(gump, rect);
                 gump.Dispose();
             }
-            catch ( Exception ex )
+            catch (Exception ex)
             {
-                MessageBox.Show( @"There was an error rendering the gump art, try rebuilding the cache.\r\n\r\n" + ex.Message );
+                MessageBox.Show(@"There was an error rendering the gump art, try rebuilding the cache.\r\n\r\n" + ex.Message);
             }
         }
 
-        private void lstGump_MeasureItem( object sender, MeasureItemEventArgs e )
+        private void lstGump_MeasureItem(object sender, MeasureItemEventArgs e)
         {
             int height = Cache[e.Index].Size.Height;
-            int num = height <= 100 ? ( height >= 15 ? height : 15 ) : 100;
+            int num = height <= 100 ? (height >= 15 ? height : 15) : 100;
             e.ItemHeight = num + 5;
         }
 
-        private void lstGump_SelectedIndexChanged( object sender, EventArgs e )
+        private void lstGump_SelectedIndexChanged(object sender, EventArgs e)
         {
             _picFullSize.Image?.Dispose();
-            _picFullSize.Image = Gumps.GetGump( Convert.ToInt32( _lstGump.SelectedItem ) );
-            _lblSize.Text = @"Width: " + Convert.ToString( _picFullSize.Image.Width ) + @"   Height: " + Convert.ToString( _picFullSize.Image.Height );
+            _picFullSize.Image = Gumps.GetGump(Convert.ToInt32(_lstGump.SelectedItem));
+            _lblSize.Text = @"Width: " + Convert.ToString(_picFullSize.Image.Width) + @"   Height: " + Convert.ToString(_picFullSize.Image.Height);
         }
 
         private void PopulateListbox()
         {
             _lstGump.Items.Clear();
-            foreach ( GumpCacheEntry gumpCacheEntry in Cache )
-                _lstGump.Items.Add( gumpCacheEntry.ID );
+            foreach (GumpCacheEntry gumpCacheEntry in Cache)
+                _lstGump.Items.Add(gumpCacheEntry.ID);
             _lstGump.SelectedItem = GumpID;
         }
     }

@@ -14,89 +14,89 @@ using Ultima;
 
 namespace GumpStudio
 {
-  public class HuePropEditor : UITypeEditor
-  {
-    protected IWindowsFormsEditorService edSvc;
-    protected Hue ReturnValue;
-
-    protected static Color Convert555ToARGB(short Col)
+    public class HuePropEditor : UITypeEditor
     {
-      return Color.FromArgb(((short) (Col >> 10) & 31) * 8, ((short) (Col >> 5) & 31) * 8, (Col & 31) * 8);
+        protected IWindowsFormsEditorService edSvc;
+        protected Hue ReturnValue;
+
+        protected static Color Convert555ToARGB(short Col)
+        {
+            return Color.FromArgb(((short)(Col >> 10) & 31) * 8, ((short)(Col >> 5) & 31) * 8, (Col & 31) * 8);
+        }
+
+        [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
+        public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
+        {
+            if (value == null)
+                value = Hues.GetHue(0);
+
+            if (!(value is Hue hue))
+            {
+                return value;
+            }
+
+            edSvc = (IWindowsFormsEditorService)provider.GetService(typeof(IWindowsFormsEditorService));
+
+            if (edSvc == null)
+            {
+                return value;
+            }
+
+            HuePickerControl huePickerControl = new HuePickerControl(hue);
+
+            huePickerControl.ValueChanged += new HuePickerControl.ValueChangedEventHandler(ValueSelected);
+
+            edSvc.DropDownControl(huePickerControl);
+            if (ReturnValue != null)
+            {
+                huePickerControl.Dispose();
+                return ReturnValue;
+            }
+            huePickerControl.Dispose();
+            return value;
+        }
+
+        [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
+        public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
+        {
+            return UITypeEditorEditStyle.DropDown;
+        }
+
+        [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
+        public override bool GetPaintValueSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
+        [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
+        public override void PaintValue(PaintValueEventArgs e)
+        {
+            Graphics graphics = e.Graphics;
+            graphics.FillRectangle(Brushes.White, e.Bounds);
+            float num1 = (e.Bounds.Width - 3) / 32f;
+            Hue hue = (Hue)e.Value;
+            if (hue == null)
+                return;
+            int num2 = 0;
+            foreach (short color in hue.Colors)
+            {
+                Rectangle bounds = e.Bounds;
+                int x = (int)Math.Round(bounds.X + num2 * (double)num1);
+                bounds = e.Bounds;
+                int y = bounds.Y;
+                int width = (int)Math.Round(num1) + 1;
+                bounds = e.Bounds;
+                int height = bounds.Height;
+                Rectangle rect = new Rectangle(x, y, width, height);
+                graphics.FillRectangle(new SolidBrush(Convert555ToARGB(color)), rect);
+                ++num2;
+            }
+        }
+
+        protected void ValueSelected(Hue Hue)
+        {
+            edSvc.CloseDropDown();
+            ReturnValue = Hue;
+        }
     }
-
-    [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
-    public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
-    {
-      if (value == null)
-        value = Hues.GetHue(0);
-
-      if ( !( value is Hue hue ) )
-      {
-          return value;
-      }
-
-      edSvc = (IWindowsFormsEditorService) provider.GetService(typeof (IWindowsFormsEditorService));
-
-      if ( edSvc == null )
-      {
-          return value;
-      }
-
-      HuePickerControl huePickerControl = new HuePickerControl(hue);
-
-      huePickerControl.ValueChanged += new HuePickerControl.ValueChangedEventHandler(ValueSelected);
-
-      edSvc.DropDownControl(huePickerControl);
-      if (ReturnValue != null)
-      {
-          huePickerControl.Dispose();
-          return ReturnValue;
-      }
-      huePickerControl.Dispose();
-      return value;
-    }
-
-    [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
-    public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
-    {
-      return UITypeEditorEditStyle.DropDown;
-    }
-
-    [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
-    public override bool GetPaintValueSupported(ITypeDescriptorContext context)
-    {
-      return true;
-    }
-
-    [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
-    public override void PaintValue(PaintValueEventArgs e)
-    {
-      Graphics graphics = e.Graphics;
-      graphics.FillRectangle(Brushes.White, e.Bounds);
-      float num1 = (e.Bounds.Width - 3) / 32f;
-      Hue hue = (Hue) e.Value;
-      if (hue == null)
-        return;
-      int num2 = 0;
-      foreach (short color in hue.Colors)
-      {
-        Rectangle bounds = e.Bounds;
-        int x = (int) Math.Round(bounds.X + num2 * (double) num1);
-        bounds = e.Bounds;
-        int y = bounds.Y;
-        int width = (int) Math.Round(num1) + 1;
-        bounds = e.Bounds;
-        int height = bounds.Height;
-        Rectangle rect = new Rectangle(x, y, width, height);
-        graphics.FillRectangle(new SolidBrush(Convert555ToARGB(color)), rect);
-        ++num2;
-      }
-    }
-
-    protected void ValueSelected(Hue Hue)
-    {
-      edSvc.CloseDropDown();
-      ReturnValue = Hue;
-    }
-  }
 }

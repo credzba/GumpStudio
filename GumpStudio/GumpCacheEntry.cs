@@ -9,18 +9,18 @@ using System.Drawing;
 
 namespace GumpStudio
 {
-  [Serializable]
-  public class GumpCacheEntry
-  {
-    public int ID;
-    [NonSerialized]
-    public Image ImageCache;
-    public string Name;
-    public Size Size;
-
-    public override string ToString()
+    [Serializable]
+    public class GumpCacheEntry
     {
-      return this.ID.ToString();
+        public int ID;
+        [NonSerialized]
+        public Image ImageCache;
+        public string Name;
+        public Size Size;
+
+        public override string ToString()
+        {
+            return this.ID.ToString();
+        }
     }
-  }
 }

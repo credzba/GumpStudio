@@ -4,13 +4,13 @@
 // MVID: A77D32E5-7519-4865-AA26-DCCB34429732
 // Assembly location: C:\GumpStudio_1_8_R3_quinted-02\GumpStudioCore.dll
 
+using GumpStudio.Forms;
 using GumpStudio.Plugins;
 using System;
 using System.Collections;
 using System.ComponentModel;
-using System.Windows.Forms;
-using GumpStudio.Forms;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace GumpStudio
 {

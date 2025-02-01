@@ -32,47 +32,47 @@ namespace Ultima
         }
     }
 
-/*
- // TODO: unused?
-    public sealed class TileList
-    {
-        private readonly List<Tile> _tiles;
-
-        public TileList()
+    /*
+     // TODO: unused?
+        public sealed class TileList
         {
-            _tiles = new List<Tile>();
-        }
+            private readonly List<Tile> _tiles;
 
-        public int Count { get { return _tiles.Count; } }
-
-        public void Add(ushort id, sbyte z)
-        {
-            _tiles.Add(new Tile(id, z));
-        }
-        public void Add(ushort id, sbyte z, sbyte flag)
-        {
-            _tiles.Add(new Tile(id, z, flag));
-        }
-
-        public Tile[] ToArray()
-        {
-            var tiles = new Tile[Count];
-            if (_tiles.Count > 0)
+            public TileList()
             {
-                _tiles.CopyTo(tiles);
+                _tiles = new List<Tile>();
             }
 
-            _tiles.Clear();
+            public int Count { get { return _tiles.Count; } }
 
-            return tiles;
-        }
+            public void Add(ushort id, sbyte z)
+            {
+                _tiles.Add(new Tile(id, z));
+            }
+            public void Add(ushort id, sbyte z, sbyte flag)
+            {
+                _tiles.Add(new Tile(id, z, flag));
+            }
 
-        public Tile Get(int i)
-        {
-            return _tiles[i];
+            public Tile[] ToArray()
+            {
+                var tiles = new Tile[Count];
+                if (_tiles.Count > 0)
+                {
+                    _tiles.CopyTo(tiles);
+                }
+
+                _tiles.Clear();
+
+                return tiles;
+            }
+
+            public Tile Get(int i)
+            {
+                return _tiles[i];
+            }
         }
-    }
-*/
+    */
 
     public sealed class MTileList
     {

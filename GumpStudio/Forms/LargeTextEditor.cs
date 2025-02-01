@@ -24,21 +24,21 @@ namespace GumpStudio
             this.InitializeComponent();
         }
 
-        private void cmdCancel_Click( object sender, EventArgs e )
+        private void cmdCancel_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
         }
 
-        private void cmdOK_Click( object sender, EventArgs e )
+        private void cmdOK_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
         }
 
-        protected override void Dispose( bool disposing )
+        protected override void Dispose(bool disposing)
         {
-            if ( disposing && this.components != null )
+            if (disposing && this.components != null)
                 this.components.Dispose();
-            base.Dispose( disposing );
+            base.Dispose(disposing);
         }
 
 
@@ -51,8 +51,8 @@ namespace GumpStudio
             // 
             // _txtText
             // 
-            this._txtText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this._txtText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this._txtText.Location = new System.Drawing.Point(8, 8);
             this._txtText.Multiline = true;

@@ -13,16 +13,16 @@ namespace Ultima
     /// </summary>
     public struct LandData
     {
-/*
- // TODO: unused?
-        public LandData(string name, int texId, TileFlag flags, int unk1)
-        {
-            Name = name;
-            this.TextureID = (short)texId;
-            Flags = flags;
-            Unk1 = unk1;
-        }
-*/
+        /*
+         // TODO: unused?
+                public LandData(string name, int texId, TileFlag flags, int unk1)
+                {
+                    Name = name;
+                    this.TextureID = (short)texId;
+                    Flags = flags;
+                    Unk1 = unk1;
+                }
+        */
 
         public unsafe LandData(NewLandTileDataMul mulStruct)
         {
@@ -283,40 +283,40 @@ namespace Ultima
         internal byte m_Unk2;
         internal byte m_Unk3;
 
-/*
- // TODO: unused?
-        public ItemData(
-            string name,
-            TileFlag flags,
-            int unk1,
-            int weight,
-            int quality,
-            int quantity,
-            int value,
-            int height,
-            int anim,
-            int hue,
-            int stackingOffset,
-            int miscData,
-            int unk2,
-            int unk3)
-        {
-            m_Name = name;
-            m_Flags = flags;
-            m_Unk1 = unk1;
-            m_Weight = (byte)weight;
-            m_Quality = (byte)quality;
-            m_Quantity = (byte)quantity;
-            m_Value = (byte)value;
-            m_Height = (byte)height;
-            m_Animation = (short)anim;
-            m_Hue = (byte)hue;
-            m_StackOffset = (byte)stackingOffset;
-            m_MiscData = (short)miscData;
-            m_Unk2 = (byte)unk2;
-            m_Unk3 = (byte)unk3;
-        }
-*/
+        /*
+         // TODO: unused?
+                public ItemData(
+                    string name,
+                    TileFlag flags,
+                    int unk1,
+                    int weight,
+                    int quality,
+                    int quantity,
+                    int value,
+                    int height,
+                    int anim,
+                    int hue,
+                    int stackingOffset,
+                    int miscData,
+                    int unk2,
+                    int unk3)
+                {
+                    m_Name = name;
+                    m_Flags = flags;
+                    m_Unk1 = unk1;
+                    m_Weight = (byte)weight;
+                    m_Quality = (byte)quality;
+                    m_Quantity = (byte)quantity;
+                    m_Value = (byte)value;
+                    m_Height = (byte)height;
+                    m_Animation = (short)anim;
+                    m_Hue = (byte)hue;
+                    m_StackOffset = (byte)stackingOffset;
+                    m_MiscData = (short)miscData;
+                    m_Unk2 = (byte)unk2;
+                    m_Unk3 = (byte)unk3;
+                }
+        */
 
         public unsafe ItemData(NewItemTileDataMul mulStruct)
         {
@@ -918,23 +918,23 @@ namespace Ultima
 
         private static readonly byte[] _stringBuffer = new byte[20];
 
-/*
- // TODO: unused?
-        private static string ReadNameString(BinaryReader bin)
-        {
-            bin.Read(_stringBuffer, 0, 20);
+        /*
+         // TODO: unused?
+                private static string ReadNameString(BinaryReader bin)
+                {
+                    bin.Read(_stringBuffer, 0, 20);
 
-            int count;
+                    int count;
 
-            for (count = 0; count < 20 && _stringBuffer[count] != 0; ++count)
-            {
-                // TODO: this loop is weird
-                //;
-            }
+                    for (count = 0; count < 20 && _stringBuffer[count] != 0; ++count)
+                    {
+                        // TODO: this loop is weird
+                        //;
+                    }
 
-            return Encoding.Default.GetString(_stringBuffer, 0, count);
-        }
-*/
+                    return Encoding.Default.GetString(_stringBuffer, 0, count);
+                }
+        */
 
         public static unsafe string ReadNameString(byte* buffer)
         {

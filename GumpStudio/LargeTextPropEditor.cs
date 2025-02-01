@@ -14,9 +14,9 @@ using System.Windows.Forms.Design;
 namespace GumpStudio
 {
     public class LargeTextPropEditor : UITypeEditor
-  {
-    protected IWindowsFormsEditorService edSvc;
-    protected int ReturnValue;
+    {
+        protected IWindowsFormsEditorService edSvc;
+        protected int ReturnValue;
 
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
@@ -31,10 +31,10 @@ namespace GumpStudio
             return value;
         }
 
-    [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
-    public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
-    {
-      return UITypeEditorEditStyle.Modal;
+        [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
+        public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
+        {
+            return UITypeEditorEditStyle.Modal;
+        }
     }
-  }
 }

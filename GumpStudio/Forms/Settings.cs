@@ -30,28 +30,28 @@ namespace GumpStudio
             this.InitializeComponent();
         }
 
-        private void Cancel_Button_Click( object sender, EventArgs e )
+        private void Cancel_Button_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
 
-        
-        protected override void Dispose( bool disposing )
+
+        protected override void Dispose(bool disposing)
         {
             try
             {
-                if ( ( !disposing || this.components == null ? 0 : 1 ) == 0 )
+                if ((!disposing || this.components == null ? 0 : 1) == 0)
                     return;
                 this.components.Dispose();
             }
             finally
             {
-                base.Dispose( disposing );
+                base.Dispose(disposing);
             }
         }
 
-        
+
         private void InitializeComponent()
         {
             this._TableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -108,7 +108,7 @@ namespace GumpStudio
             // 
             // _txtClientPath
             // 
-            this._txtClientPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this._txtClientPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this._txtClientPath.Location = new System.Drawing.Point(85, 12);
             this._txtClientPath.Name = "_txtClientPath";
@@ -152,7 +152,7 @@ namespace GumpStudio
             // 
             // _TrackBar1
             // 
-            this._TrackBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this._TrackBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this._TrackBar1.Location = new System.Drawing.Point(15, 94);
             this._TrackBar1.Maximum = 100;
@@ -221,7 +221,7 @@ namespace GumpStudio
 
         }
 
-        private void OK_Button_Click( object sender, EventArgs e )
+        private void OK_Button_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
             this.Close();

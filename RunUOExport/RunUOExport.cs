@@ -1,12 +1,11 @@
-﻿using System;
+﻿using GumpStudio.Elements;
+using GumpStudio.Forms;
+using GumpStudio.Plugins;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using GumpStudio;
-using GumpStudio.Elements;
-using GumpStudio.Forms;
-using GumpStudio.Plugins;
 
 namespace RunUOExport
 {
@@ -31,18 +30,18 @@ namespace RunUOExport
             return val;
         }
 
-        public override void Load( DesignerForm frmDesigner )
+        public override void Load(DesignerForm frmDesigner)
         {
             base.Load(frmDesigner);
             _designer = frmDesigner;
 
-            MenuItem menuItem = new MenuItem( "RunUO Export", ExportClick );
+            MenuItem menuItem = new MenuItem("RunUO Export", ExportClick);
 
             _designer.mnuFileExport.Enabled = true;
-            _designer.mnuFileExport.MenuItems.Add( menuItem );
+            _designer.mnuFileExport.MenuItems.Add(menuItem);
         }
 
-        private void ExportClick( object sender, EventArgs e )
+        private void ExportClick(object sender, EventArgs e)
         {
             string fullPath = Path.GetTempFileName() + ".txt";
 
@@ -50,36 +49,36 @@ namespace RunUOExport
 
             string text = CSTemplate;
 
-            elementText.AppendLine( "\t\t\tDragable = true;" );
-            elementText.AppendLine( "\t\t\tClosable = true;" );
-            elementText.AppendLine( "\t\t\tResizable = false;" );
-            elementText.AppendLine( "\t\t\tDisposable = false;" );
+            elementText.AppendLine("\t\t\tDragable = true;");
+            elementText.AppendLine("\t\t\tClosable = true;");
+            elementText.AppendLine("\t\t\tResizable = false;");
+            elementText.AppendLine("\t\t\tDisposable = false;");
 
             int page = 0;
 
-            foreach ( GroupElement stack in _designer.Stacks )
+            foreach (GroupElement stack in _designer.Stacks)
             {
-                elementText.AppendLine( $"\t\t\tAddPage({page});" );
+                elementText.AppendLine($"\t\t\tAddPage({page});");
 
-                if ( stack.Elements == null || stack.Elements.Length <= 0 )
+                if (stack.Elements == null || stack.Elements.Length <= 0)
                 {
                     continue;
                 }
 
-                foreach ( BaseElement element in stack.GetElementsRecursive() )
+                foreach (BaseElement element in stack.GetElementsRecursive())
                 {
-                    if ( element is IRunUOExportable exportable )
+                    if (element is IRunUOExportable exportable)
                     {
-                        elementText.AppendLine( "\t\t\t" + exportable.ToRunUOString() );
+                        elementText.AppendLine("\t\t\t" + exportable.ToRunUOString());
                     }
                 }
             }
 
-            text = text.Replace( "{gump_commands}", elementText.ToString() );
+            text = text.Replace("{gump_commands}", elementText.ToString());
 
-            File.WriteAllText( fullPath, text );
+            File.WriteAllText(fullPath, text);
 
-            Process p = new Process { StartInfo = new ProcessStartInfo( fullPath ) { UseShellExecute = true } };
+            Process p = new Process { StartInfo = new ProcessStartInfo(fullPath) { UseShellExecute = true } };
             p.Start();
         }
     }
