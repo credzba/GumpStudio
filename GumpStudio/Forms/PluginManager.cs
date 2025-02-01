@@ -8,9 +8,9 @@ using GumpStudio.Plugins;
 using System;
 using System.Collections;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using GumpStudio.Forms;
+using System.Linq;
 
 namespace GumpStudio
 {
@@ -43,92 +43,71 @@ namespace GumpStudio
 
         public PluginManager()
         {
-            this.Load += new EventHandler( this.PluginManager_Load );
+            this.Load += new EventHandler(this.PluginManager_Load);
             this.InitializeComponent();
         }
 
-        private void cmdAdd_Click( object sender, EventArgs e )
+        private void cmdAdd_Click(object sender, EventArgs e)
         {
-            PluginInfo pluginInfo = (PluginInfo) this._lstAvailable.Items[this._lstAvailable.SelectedIndex];
-            this._lstAvailable.Items.RemoveAt( this._lstAvailable.SelectedIndex );
-            this._lstLoaded.Items.Add( pluginInfo );
+            PluginInfo pluginInfo = (PluginInfo)this._lstAvailable.Items[this._lstAvailable.SelectedIndex];
+            this._lstAvailable.Items.RemoveAt(this._lstAvailable.SelectedIndex);
+            this._lstLoaded.Items.Add(pluginInfo);
         }
 
-        private void cmdCancel_Click( object sender, EventArgs e )
+        private void cmdCancel_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
         }
 
-        private void cmdMoveDown_Click( object sender, EventArgs e )
+        private void cmdMoveDown_Click(object sender, EventArgs e)
         {
-            int selectedIndex = this._lstLoaded.SelectedIndex;
-            if ( selectedIndex >= this._lstLoaded.Items.Count - 2 )
+            int selectedIndex = _lstLoaded.SelectedIndex;
+            if (selectedIndex >= _lstLoaded.Items.Count - 2)
                 return;
-            object objectValue = RuntimeHelpers.GetObjectValue( this._lstLoaded.SelectedItem );
-            this._lstLoaded.Items.RemoveAt( selectedIndex );
-            this._lstLoaded.Items.Insert( selectedIndex + 1, RuntimeHelpers.GetObjectValue( objectValue ) );
-            this._lstLoaded.SelectedIndex = selectedIndex + 1;
+
+            var item = _lstLoaded.SelectedItem;
+            _lstLoaded.Items.RemoveAt(selectedIndex);
+            _lstLoaded.Items.Insert(selectedIndex + 1, item);
+            _lstLoaded.SelectedIndex = selectedIndex + 1;
         }
 
-        private void cmdMoveUp_Click( object sender, EventArgs e )
+        private void cmdMoveUp_Click(object sender, EventArgs e)
         {
-            int selectedIndex = this._lstLoaded.SelectedIndex;
-            if ( selectedIndex <= 0 )
+            int selectedIndex = _lstLoaded.SelectedIndex;
+            if (selectedIndex <= 0)
                 return;
-            object objectValue = RuntimeHelpers.GetObjectValue( this._lstLoaded.SelectedItem );
-            this._lstLoaded.Items.RemoveAt( selectedIndex );
-            this._lstLoaded.Items.Insert( selectedIndex - 1, RuntimeHelpers.GetObjectValue( objectValue ) );
-            this._lstLoaded.SelectedIndex = selectedIndex - 1;
+
+            var item = _lstLoaded.SelectedItem;
+            _lstLoaded.Items.RemoveAt(selectedIndex);
+            _lstLoaded.Items.Insert(selectedIndex - 1, item);
+            _lstLoaded.SelectedIndex = selectedIndex - 1;
         }
 
-        private void cmdOK_Click( object sender, EventArgs e )
+        private void cmdOK_Click(object sender, EventArgs e)
         {
-            IEnumerator enumerator = null;
-            MessageBox.Show( "You will need to restart the program for plugin changes to take effect." );
-            PluginInfo[] pluginInfoArray = null;
-            try
-            {
-                foreach ( object obj in this._lstLoaded.Items )
-                {
-                    PluginInfo objectValue = (PluginInfo) RuntimeHelpers.GetObjectValue( obj );
+            MessageBox.Show("You will need to restart the program for plugin changes to take effect.");
 
-                    if ( pluginInfoArray != null )
-                    {
-                        Array.Resize( ref pluginInfoArray, pluginInfoArray.Length+1 );
-                    }
-                    else
-                    {
-                        pluginInfoArray = new PluginInfo[1];
-                    }
+            var pluginInfoArray = _lstLoaded.Items.Cast<PluginInfo>().ToArray();
 
-                    pluginInfoArray[pluginInfoArray.Length - 1] = objectValue;
-                }
-            }
-            finally
-            {
-                if ( enumerator is IDisposable )
-                    ( enumerator as IDisposable ).Dispose();
-            }
-            this.MainForm.PluginTypesToLoad = pluginInfoArray;
-            this.MainForm.WritePluginsToLoad();
-            this.DialogResult = DialogResult.OK;
+            MainForm.PluginTypesToLoad = pluginInfoArray;
+            MainForm.WritePluginsToLoad();
+            DialogResult = DialogResult.OK;
+        }
+        private void cmdRemove_Click(object sender, EventArgs e)
+        {
+            PluginInfo pluginInfo = (PluginInfo)this._lstLoaded.Items[this._lstLoaded.SelectedIndex];
+            this._lstLoaded.Items.RemoveAt(this._lstLoaded.SelectedIndex);
+            this._lstAvailable.Items.Add(pluginInfo);
         }
 
-        private void cmdRemove_Click( object sender, EventArgs e )
+        protected override void Dispose(bool disposing)
         {
-            PluginInfo pluginInfo = (PluginInfo) this._lstLoaded.Items[this._lstLoaded.SelectedIndex];
-            this._lstLoaded.Items.RemoveAt( this._lstLoaded.SelectedIndex );
-            this._lstAvailable.Items.Add( pluginInfo );
-        }
-
-        protected override void Dispose( bool disposing )
-        {
-            if ( disposing && this.components != null )
+            if (disposing && this.components != null)
                 this.components.Dispose();
-            base.Dispose( disposing );
+            base.Dispose(disposing);
         }
 
-        
+
         private void InitializeComponent()
         {
             this._Label1 = new System.Windows.Forms.Label();
@@ -312,7 +291,7 @@ namespace GumpStudio
             // 
             // _lstAvailable
             // 
-            this._lstAvailable.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this._lstAvailable.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
             this._lstAvailable.IntegralHeight = false;
             this._lstAvailable.Location = new System.Drawing.Point(192, 24);
@@ -332,7 +311,7 @@ namespace GumpStudio
             // 
             // _lstLoaded
             // 
-            this._lstLoaded.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this._lstLoaded.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
             this._lstLoaded.IntegralHeight = false;
             this._lstLoaded.Location = new System.Drawing.Point(8, 24);
@@ -372,73 +351,57 @@ namespace GumpStudio
 
         }
 
-        private void PluginManager_Load( object sender, EventArgs e )
+        private void PluginManager_Load(object sender, EventArgs e)
         {
-            IEnumerator enumerator1 = null;
-            this._lstLoaded.Items.Clear();
-            this._lstAvailable.Items.Clear();
-            if ( this.OrderList != null )
+            _lstLoaded.Items.Clear();
+            _lstAvailable.Items.Clear();
+
+            if (OrderList != null)
             {
-                foreach ( PluginInfo order in this.OrderList )
+                foreach (PluginInfo order in OrderList)
                 {
-                    IEnumerator enumerator2 = null;
-                    bool flag = false;
-                    try
+                    bool flag = AvailablePlugins.Cast<BasePlugin>()
+                        .Any(plugin => plugin.GetPluginInfo().Equals(order));
+
+                    if (flag)
                     {
-                        foreach ( object availablePlugin in this.AvailablePlugins )
-                        {
-                            if ( ( (BasePlugin) RuntimeHelpers.GetObjectValue( availablePlugin ) ).GetPluginInfo().Equals( order ) )
-                                flag = true;
-                        }
+                        _lstLoaded.Items.Add(order);
                     }
-                    finally
-                    {
-                        if ( enumerator2 is IDisposable )
-                            ( enumerator2 as IDisposable ).Dispose();
-                    }
-                    if ( flag )
-                        this._lstLoaded.Items.Add( order );
                 }
             }
-            try
+
+            foreach (BasePlugin plugin in AvailablePlugins)
             {
-                foreach ( object availablePlugin in this.AvailablePlugins )
+                if (!plugin.IsLoaded)
                 {
-                    BasePlugin objectValue = (BasePlugin) RuntimeHelpers.GetObjectValue( availablePlugin );
-                    if ( !objectValue.IsLoaded )
-                        this._lstAvailable.Items.Add( objectValue.GetPluginInfo() );
+                    _lstAvailable.Items.Add(plugin.GetPluginInfo());
                 }
-            }
-            finally
-            {
-                if ( enumerator1 is IDisposable )
-                    ( enumerator1 as IDisposable ).Dispose();
             }
         }
 
-        private void Plugins_SelectedIndexChanged( object sender, EventArgs e )
+        private void Plugins_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ListBox listBox = (ListBox) sender;
-            if ( listBox.SelectedIndex == -1 )
+            ListBox listBox = (ListBox)sender;
+            if (listBox.SelectedIndex == -1)
                 return;
-            PluginInfo selectedItem = (PluginInfo) listBox.SelectedItem;
+            PluginInfo selectedItem = (PluginInfo)listBox.SelectedItem;
             this._txtAuthor.Text = selectedItem.AuthorName;
             this._txtEmail.Text = selectedItem.AuthorEmail;
             this._txtVersion.Text = selectedItem.Version;
             this._txtDescription.Text = selectedItem.Description;
-            if ( this._lstLoaded.SelectedIndex > 0 )
+            if (this._lstLoaded.SelectedIndex > 0)
                 this._cmdMoveUp.Enabled = true;
             else
                 this._cmdMoveUp.Enabled = false;
-            if ( this._lstLoaded.SelectedIndex < listBox.Items.Count - 1 )
+            if (this._lstLoaded.SelectedIndex < listBox.Items.Count - 1)
                 this._cmdMoveDown.Enabled = true;
             else
                 this._cmdMoveDown.Enabled = false;
-            if ( this._lstAvailable.SelectedIndex == -1 )
+            if (this._lstAvailable.SelectedIndex == -1)
                 this._cmdAdd.Enabled = false;
             else
                 this._cmdAdd.Enabled = true;
-            if ( this._lstLoaded.SelectedIndex == -1 )
+            if (this._lstLoaded.SelectedIndex == -1)
                 this._cmdRemove.Enabled = false;
             else
                 this._cmdRemove.Enabled = true;

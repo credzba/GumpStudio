@@ -33,6 +33,7 @@ namespace RunUOExport
 
         public override void Load( DesignerForm frmDesigner )
         {
+            base.Load(frmDesigner);
             _designer = frmDesigner;
 
             MenuItem menuItem = new MenuItem( "RunUO Export", ExportClick );

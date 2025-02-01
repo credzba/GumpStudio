@@ -28,7 +28,7 @@ namespace GumpStudio.Elements
 
                 foreach ( object obj in mParent.GetElementsRecursive() )
                 {
-                    object objectValue = RuntimeHelpers.GetObjectValue( obj );
+                    object objectValue = obj;
 
                     if ( !( objectValue is RadioElement ) )
                     {

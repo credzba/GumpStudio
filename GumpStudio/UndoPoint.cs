@@ -28,7 +28,7 @@ namespace GumpStudio
       {
         foreach (object stack in Designer.Stacks)
         {
-          GroupElement objectValue = (GroupElement) RuntimeHelpers.GetObjectValue(stack);
+          GroupElement objectValue = (GroupElement) stack;
           GroupElement groupElement = (GroupElement) objectValue.Clone();
           this.Stack.Add(groupElement);
           if (objectValue == Designer.ElementStack)

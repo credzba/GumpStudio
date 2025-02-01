@@ -199,8 +199,10 @@ namespace GumpStudio.Elements
       IEnumerator enumerator = null;
       try
       {
-        foreach (object mExtender in BaseElement.mExtenders)
-          ((ElementExtender) RuntimeHelpers.GetObjectValue(mExtender)).AddContextMenus(ref GroupMenu, ref PositionMenu, ref OrderMenu, ref MiscMenu);
+                foreach (object mExtender in BaseElement.mExtenders)
+                {
+                    ((ElementExtender)mExtender).AddContextMenus(ref GroupMenu, ref PositionMenu, ref OrderMenu, ref MiscMenu);
+                }
       }
       finally
       {
@@ -255,7 +257,7 @@ namespace GumpStudio.Elements
       {
         foreach (object selectedElement in this.mParent.GetSelectedElements())
         {
-          BaseElement objectValue = (BaseElement) RuntimeHelpers.GetObjectValue(selectedElement);
+          BaseElement objectValue = (BaseElement) selectedElement;
           objectValue.Y = this.Y + this.Height - objectValue.Height;
         }
       }
@@ -274,7 +276,7 @@ namespace GumpStudio.Elements
       {
         foreach (object selectedElement in this.mParent.GetSelectedElements())
         {
-          object objectValue = RuntimeHelpers.GetObjectValue(selectedElement);
+          object objectValue = selectedElement;
           if (objectValue != this)
           {
             BaseElement baseElement = (BaseElement) objectValue;
@@ -296,7 +298,7 @@ namespace GumpStudio.Elements
       try
       {
         foreach (object selectedElement in this.mParent.GetSelectedElements())
-          ((BaseElement) RuntimeHelpers.GetObjectValue(selectedElement)).X = this.X;
+          ((BaseElement) selectedElement).X = this.X;
       }
       finally
       {
@@ -313,7 +315,7 @@ namespace GumpStudio.Elements
       {
         foreach (object selectedElement in this.mParent.GetSelectedElements())
         {
-          object objectValue = RuntimeHelpers.GetObjectValue(selectedElement);
+          object objectValue = selectedElement;
           if (objectValue != this)
           {
             BaseElement baseElement = (BaseElement) objectValue;
@@ -336,7 +338,7 @@ namespace GumpStudio.Elements
       {
         foreach (object selectedElement in this.mParent.GetSelectedElements())
         {
-          BaseElement objectValue = (BaseElement) RuntimeHelpers.GetObjectValue(selectedElement);
+          BaseElement objectValue = (BaseElement) selectedElement;
           objectValue.X = this.X + this.Width - objectValue.Width;
         }
       }
@@ -354,7 +356,7 @@ namespace GumpStudio.Elements
       try
       {
         foreach (object selectedElement in this.mParent.GetSelectedElements())
-          ((BaseElement) RuntimeHelpers.GetObjectValue(selectedElement)).Y = this.Y;
+          ((BaseElement) selectedElement).Y = this.Y;
       }
       finally
       {
@@ -380,7 +382,7 @@ namespace GumpStudio.Elements
       {
         foreach (object selectedElement in this.mParent.GetSelectedElements())
         {
-          BaseElement objectValue = (BaseElement) RuntimeHelpers.GetObjectValue(selectedElement);
+          BaseElement objectValue = (BaseElement) selectedElement;
           int num3 = objectValue.Width / 2 + objectValue.X;
           if (num3 < num2)
             num2 = num3;
@@ -401,7 +403,7 @@ namespace GumpStudio.Elements
       {
         foreach (object obj in arrayList)
         {
-          BaseElement objectValue = (BaseElement) RuntimeHelpers.GetObjectValue(obj);
+          BaseElement objectValue = (BaseElement) obj;
           objectValue.X = (int) Math.Round(num5 - objectValue.Width / 2.0);
           num5 += num4;
         }
@@ -446,7 +448,7 @@ namespace GumpStudio.Elements
       {
         foreach (object selectedElement in this.mParent.GetSelectedElements())
         {
-          BaseElement objectValue = (BaseElement) RuntimeHelpers.GetObjectValue(selectedElement);
+          BaseElement objectValue = (BaseElement) selectedElement;
           int num3 = objectValue.Height / 2 + objectValue.Y;
           if (num3 < num2)
             num2 = num3;
@@ -467,7 +469,7 @@ namespace GumpStudio.Elements
       {
         foreach (object obj in arrayList)
         {
-          BaseElement objectValue = (BaseElement) RuntimeHelpers.GetObjectValue(obj);
+          BaseElement objectValue = (BaseElement) obj;
           objectValue.Y = (int) Math.Round(num5 - objectValue.Height / 2.0);
           num5 += num4;
         }
@@ -558,7 +560,7 @@ namespace GumpStudio.Elements
       BaseElement.RepaintEventHandler repaint = this.Repaint;
       if (repaint == null)
         return;
-      repaint(RuntimeHelpers.GetObjectValue(sender));
+      repaint(sender);
     }
 
     public void RaiseUpdateEvent(BaseElement Element, bool ClearSelected)

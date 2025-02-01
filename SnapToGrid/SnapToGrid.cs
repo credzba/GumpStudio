@@ -205,6 +205,7 @@ namespace GumpStudioCore.Plugins
 
         public override void Load( DesignerForm frmDesigner )
         {
+            base.Load(frmDesigner);
             _designer = frmDesigner;
 
             LoadConfig();

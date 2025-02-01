@@ -221,7 +221,7 @@ namespace GumpStudio.Forms
         {
             foreach ( object child in Item.GetChildren() )
             {
-                TreeItem objectValue = (TreeItem) RuntimeHelpers.GetObjectValue( child );
+                TreeItem objectValue = (TreeItem)  child ;
                 TreeNode treeNode = new TreeNode();
                 treeNode.Text = objectValue.Text;
                 treeNode.Tag = objectValue;
@@ -246,7 +246,7 @@ namespace GumpStudio.Forms
                 {
                     try
                     {
-                        Type objectValue = (Type)RuntimeHelpers.GetObjectValue(enumerator1.Current);
+                        Type objectValue = (Type)enumerator1.Current;
 
                         BaseElement instance = (BaseElement)Activator.CreateInstance(objectValue);
                         Button button = new Button();
@@ -263,7 +263,7 @@ namespace GumpStudio.Forms
                         if (instance.DispayInAbout())
                             AboutElementAppend = AboutElementAppend + "\r\n\r\n" + instance.Type + ": " + instance.GetAboutText();
                         foreach (object loadedPlugin in LoadedPlugins)
-                            ((BasePlugin)RuntimeHelpers.GetObjectValue(loadedPlugin)).InitializeElementExtenders(instance);
+                            ((BasePlugin)loadedPlugin).InitializeElementExtenders(instance);
                     }
                     catch (Exception ex)
                     {
@@ -293,7 +293,7 @@ namespace GumpStudio.Forms
         private void cboElements_Click( object sender, EventArgs e )
         {
             foreach ( object element in ElementStack.GetElements() )
-                ( (BaseElement) RuntimeHelpers.GetObjectValue( element ) ).Selected = false;
+                ( (BaseElement) element ).Selected = false;
             ActiveElement = null;
         }
 
@@ -362,7 +362,7 @@ namespace GumpStudio.Forms
             ArrayList arrayList = new ArrayList();
 
             foreach ( object selectedElement in ElementStack.GetSelectedElements() )
-                arrayList.Add( ( (BaseElement) RuntimeHelpers.GetObjectValue( selectedElement ) ).Clone() );
+                arrayList.Add( ( (BaseElement) selectedElement ).Clone() );
 
             Clipboard.SetDataObject( arrayList );
             CopyMode = ClipBoardMode.Copy;
@@ -410,7 +410,7 @@ namespace GumpStudio.Forms
             {
                 foreach ( object selectedElement in ElementStack.GetSelectedElements() )
                 {
-                    BaseElement objectValue = (BaseElement) RuntimeHelpers.GetObjectValue( selectedElement );
+                    BaseElement objectValue = (BaseElement) selectedElement;
                     arrayList.Add( objectValue );
                 }
             }
@@ -433,7 +433,7 @@ namespace GumpStudio.Forms
             {
                 foreach ( object obj in arrayList )
                 {
-                    object objectValue = RuntimeHelpers.GetObjectValue( obj );
+                    object objectValue = obj;
                     flag = true;
                     BaseElement e = (BaseElement) objectValue;
                     if ( e.Selected )
@@ -465,7 +465,7 @@ namespace GumpStudio.Forms
             {
                 foreach ( object availablePlugin in AvailablePlugins )
                 {
-                    BasePlugin objectValue = (BasePlugin) RuntimeHelpers.GetObjectValue( availablePlugin );
+                    BasePlugin objectValue = (BasePlugin) availablePlugin;
                     if ( objectValue.IsLoaded )
                         objectValue.Unload();
                 }
@@ -505,7 +505,7 @@ namespace GumpStudio.Forms
                 {
                     foreach ( object selectedElement in ElementStack.GetSelectedElements() )
                     {
-                        BaseElement objectValue = (BaseElement) RuntimeHelpers.GetObjectValue( selectedElement );
+                        BaseElement objectValue = (BaseElement) selectedElement;
                         Point location = objectValue.Location;
                         location.Offset( 0, -Convert.ToInt32( ArrowKeyDelta ) );
                         objectValue.Location = location;
@@ -525,7 +525,7 @@ namespace GumpStudio.Forms
                 {
                     foreach ( object selectedElement in ElementStack.GetSelectedElements() )
                     {
-                        BaseElement objectValue = (BaseElement) RuntimeHelpers.GetObjectValue( selectedElement );
+                        BaseElement objectValue = (BaseElement) selectedElement;
                         Point location = objectValue.Location;
                         location.Offset( 0, Convert.ToInt32( ArrowKeyDelta ) );
                         objectValue.Location = location;
@@ -545,7 +545,7 @@ namespace GumpStudio.Forms
                 {
                     foreach ( object selectedElement in ElementStack.GetSelectedElements() )
                     {
-                        BaseElement objectValue = (BaseElement) RuntimeHelpers.GetObjectValue( selectedElement );
+                        BaseElement objectValue = (BaseElement) selectedElement;
                         Point location = objectValue.Location;
                         location.Offset( -Convert.ToInt32( ArrowKeyDelta ), 0 );
                         objectValue.Location = location;
@@ -565,7 +565,7 @@ namespace GumpStudio.Forms
                 {
                     foreach ( object selectedElement in ElementStack.GetSelectedElements() )
                     {
-                        BaseElement objectValue = (BaseElement) RuntimeHelpers.GetObjectValue( selectedElement );
+                        BaseElement objectValue = (BaseElement) selectedElement;
                         Point location = objectValue.Location;
                         location.Offset( Convert.ToInt32( ArrowKeyDelta ), 0 );
                         objectValue.Location = location;
@@ -693,14 +693,14 @@ namespace GumpStudio.Forms
             {
                 m_cboElements.Items.Clear();
                 m_cboElements.Items.AddRange( ElementStack.GetElements().ToArray() );
-                m_cboElements.SelectedItem = RuntimeHelpers.GetObjectValue( m_ElementProperties.SelectedObject );
+                m_cboElements.SelectedItem = m_ElementProperties.SelectedObject;
             }
             _picCanvas.Invalidate();
             CreateUndoPoint( "Property Changed" );
         }
 
         protected void EnumeratePlugins()
-        {
+        {          
             if ( !Directory.Exists( Application.StartupPath + "\\Plugins" ) )
                 Directory.CreateDirectory( Application.StartupPath + "\\Plugins" );
             PluginTypesToLoad = GetPluginsToLoad();
@@ -736,12 +736,13 @@ namespace GumpStudio.Forms
                 {
                     foreach ( object availablePlugin in AvailablePlugins )
                     {
-                        BasePlugin objectValue = (BasePlugin) RuntimeHelpers.GetObjectValue( availablePlugin );
+                        BasePlugin objectValue = (BasePlugin) availablePlugin;
                         PluginInfo pluginInfo2 = objectValue.GetPluginInfo();
                         if ( pluginInfo1.Equals( pluginInfo2 ) )
                         {
-                            objectValue.Load( this );
+                            
                             LoadedPlugins.Add( objectValue );
+                            objectValue.Load(this);
                         }
                     }
                 }
@@ -750,6 +751,7 @@ namespace GumpStudio.Forms
                     ( enumerator as IDisposable )?.Dispose();
                 }
             }
+           
         }
 
         protected void GetContextMenu( ref BaseElement Element, ContextMenu Menu )
@@ -792,7 +794,7 @@ namespace GumpStudio.Forms
             try
             {
                 foreach ( object element in ElementStack.GetElements() )
-                    baseElement = (BaseElement) RuntimeHelpers.GetObjectValue( element );
+                    baseElement = (BaseElement) element;
             }
             finally
             {
@@ -1497,7 +1499,6 @@ namespace GumpStudio.Forms
             {
                 foreach ( object stack in Stacks )
                 {
-                    RuntimeHelpers.GetObjectValue( stack );
                     _TabPager.TabPages.Add( new TabPage( num1.ToString() ) );
                     ++num1;
                 }
@@ -1630,7 +1631,7 @@ namespace GumpStudio.Forms
             {
                 foreach ( object element in ElementStack.GetElements() )
                 {
-                    BaseElement objectValue = (BaseElement) RuntimeHelpers.GetObjectValue( element );
+                    BaseElement objectValue = (BaseElement) element;
                     if ( objectValue.Selected )
                         arrayList.Add( objectValue );
                 }
@@ -1647,7 +1648,7 @@ namespace GumpStudio.Forms
                 {
                     foreach ( object obj in arrayList )
                     {
-                        BaseElement objectValue = (BaseElement) RuntimeHelpers.GetObjectValue( obj );
+                        BaseElement objectValue = (BaseElement) obj;
                         groupElement.AddElement( objectValue );
                         ElementStack.RemoveElement( objectValue );
                         ElementStack.RemoveEvents( objectValue );
@@ -1778,7 +1779,7 @@ namespace GumpStudio.Forms
 
                 foreach ( object obj in data )
                 {
-                    BaseElement objectValue = (BaseElement) RuntimeHelpers.GetObjectValue( obj );
+                    BaseElement objectValue = (BaseElement) obj ;
                     if ( CopyMode == ClipBoardMode.Copy )
                         objectValue.Name = "Copy of " + objectValue.Name;
                     objectValue.Selected = true;
@@ -1863,7 +1864,7 @@ namespace GumpStudio.Forms
 
             foreach ( object loadedPlugin in LoadedPlugins )
             {
-                ( (BasePlugin) RuntimeHelpers.GetObjectValue( loadedPlugin ) ).MouseMoveHook( ref e1 );
+                ( (BasePlugin) loadedPlugin ).MouseMoveHook( ref e1 );
                 point1 = e1.MouseLocation;
             }
 
@@ -2045,7 +2046,7 @@ namespace GumpStudio.Forms
                         {
                             foreach ( object selectedElement in ElementStack.GetSelectedElements() )
                             {
-                                BaseElement objectValue = (BaseElement) RuntimeHelpers.GetObjectValue( selectedElement );
+                                BaseElement objectValue = (BaseElement) selectedElement;
                                 if ( objectValue != ActiveElement )
                                 {
                                     Point location5 = objectValue.Location;
@@ -2132,7 +2133,7 @@ namespace GumpStudio.Forms
 
                 foreach ( object element in ElementStack.GetElements() )
                 {
-                    BaseElement objectValue = (BaseElement) RuntimeHelpers.GetObjectValue( element );
+                    BaseElement objectValue = (BaseElement) element;
                     if ( objectValue.ContainsTest( SelectionRect ) )
                     {
                         objectValue.Selected = true;
@@ -2179,10 +2180,9 @@ namespace GumpStudio.Forms
 
             foreach ( object stack in Stacks )
             {
-                object objectValue = RuntimeHelpers.GetObjectValue( stack );
                 ++num;
                 _TabPager.TabPages.Add( new TabPage( Convert.ToString( num ) ) );
-                if ( ElementStack == objectValue )
+                if ( ElementStack == stack )
                     _TabPager.SelectedIndex = num;
             }
         }
@@ -2228,7 +2228,7 @@ namespace GumpStudio.Forms
 
             foreach ( object element in ElementStack.GetElements() )
             {
-                BaseElement objectValue = (BaseElement) RuntimeHelpers.GetObjectValue( element );
+                BaseElement objectValue = (BaseElement) element;
                 if ( ( !objectValue.Selected || objectValue == ActiveElement ? 0 : 1 ) != 0 )
                     objectValue.DrawBoundingBox( Target1, false );
             }
@@ -2252,7 +2252,7 @@ namespace GumpStudio.Forms
             Stacks = new ArrayList();
             foreach ( object obj in undoPoint.Stack )
             {
-                GroupElement objectValue = (GroupElement) RuntimeHelpers.GetObjectValue( obj );
+                GroupElement objectValue = (GroupElement) obj;
                 GroupElement groupElement = (GroupElement) objectValue.Clone();
                 Stacks.Add( groupElement );
                 if ( undoPoint.ElementStack == objectValue )
@@ -2283,7 +2283,7 @@ namespace GumpStudio.Forms
         public void SelectAll()
         {
             foreach ( object selectedElement in ElementStack.GetSelectedElements() )
-                ( (BaseElement) RuntimeHelpers.GetObjectValue( selectedElement ) ).Selected = true;
+                ( (BaseElement) selectedElement ).Selected = true;
             _picCanvas.Invalidate();
         }
 
@@ -2297,7 +2297,7 @@ namespace GumpStudio.Forms
             if ( DeselectOthers )
             {
                 foreach ( object element in ElementStack.GetElements() )
-                    ( (BaseElement) RuntimeHelpers.GetObjectValue( element ) ).Selected = false;
+                    ( (BaseElement) element ).Selected = false;
             }
             if ( ActiveElement != Element )
             {
